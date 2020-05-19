@@ -1,0 +1,37 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    {{ 'Informacje o kategorii'|trans({'%id%': category.id|default('')}) }}
+{% endblock %}
+
+{% block body %}
+    <h1>{{ 'Informacje o Kategorii'|trans({'%id%': category.id|default('')}) }}</h1>
+    {% if category is defined and category|length %}
+        <dl class="dl-horizontal">
+            <dt>{{ 'ID kategorii'|trans }}</dt>
+            <dd>{{ category.id }}</dd>
+            <dt>{{ 'Nazwa kategorii'|trans }}</dt>
+            <dt>{{ category.category_name}}</dt>
+            <dt>{{ 'Przepisy'|trans }}</dt>
+
+
+
+
+        </dl>
+        <p>
+            <a href="{{ url('category_index') }}" title="{{ 'action_back_to_list'|trans }}">
+                {{ 'Wróć do listy kategorii'|trans }}
+            </a>
+        </p>
+
+        <p>
+            <a href="{{ url('recipe_index') }}" title="{{ 'action_back_to_list'|trans }}">
+                {{ 'Przejź do listy przepisów'|trans }}
+            </a>
+        </p>
+    {% else %}
+        <p>
+            {{ 'message_item_not_found'|trans }}
+        </p>
+    {% endif %}
+{% endblock %}

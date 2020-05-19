@@ -1,0 +1,36 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    {{ 'Informacje o przepisie'|trans({'%id%': recipe.id|default('')}) }}
+{% endblock %}
+
+{% block body %}
+    <h1>{{ 'Informacje o przespisie'|trans({'%id%': recipe.id|default('')}) }}</h1>
+    {% if recipe is defined and recipe|length %}
+        <dl class="dl-horizontal">
+            <dt>{{ 'ID przepisu'|trans }}</dt>
+            <dd>{{ recipe.id }}</dd>
+            <dt>{{ 'Nazwa przepisu'|trans }}</dt>
+            <dt>{{ 'Kategoria'|trans }}</dt>
+            <dd>{{  recipe.category.category_name }}</dd>
+            <dt>{{ 'Opis przepisu'|trans }}</dt>
+            <dd>{{ recipe.recipe_description }}</dd>
+            <dd>{{  recipe.recipe_name }}</dd>
+            <dt>{{ 'Data dodania'|trans }}</dt>
+            <dd>{{ recipe.creation_date|format_date('long') }}</dd>
+            <dt>{{ 'Ranking'|trans }}</dt>
+            <dd>{{ recipe.rating }}</dd>
+
+
+        </dl>
+        <p>
+            <a href="{{ url('recipe_index') }}" title="{{ 'action_back_to_list'|trans }}">
+                {{ 'Wróć do listy przepisów'|trans }}
+            </a>
+        </p>
+    {% else %}
+        <p>
+            {{ 'message_item_not_found'|trans }}
+        </p>
+    {% endif %}
+{% endblock %}
