@@ -8,11 +8,13 @@ namespace App\Controller;
 use App\Entity\Category;
 
 use App\Repository\CategoryRepository;
+use App\Repository\RecipeRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use \Knp\Component\Pager\PaginatorInterface;
 use \Symfony\Component\HttpFoundation\Request;
+use App\Form\CategoryType;
 
 /**
  *  Class CategoryController.
@@ -24,9 +26,9 @@ class CategoryController extends AbstractController
     /**
      * Index action.
      *
-     * @param \Symfony\Component\HttpFoundation\Request $request        HTTP request
-     * @param \App\Repository\CategoryRepository           $categoryRepository Recipe repository
-     * @param \Knp\Component\Pager\PaginatorInterface   $paginator      Paginator
+     * @param \Symfony\Component\HttpFoundation\Request $request HTTP request
+     * @param \App\Repository\CategoryRepository $categoryRepository Recipe repository
+     * @param \Knp\Component\Pager\PaginatorInterface $paginator Paginator
      *
      * @return \Symfony\Component\HttpFoundation\Response HTTP response
      *
@@ -51,7 +53,7 @@ class CategoryController extends AbstractController
     /**
      * Show action.
      *
-     * @param \App\Entity\Recipe $category Category entity
+     * @param \App\Entity\Category $category Category entity
      *
      * @return \Symfony\Component\HttpFoundation\Response HTTP response
      *
@@ -59,14 +61,140 @@ class CategoryController extends AbstractController
      *     "/{id}",
      *     methods={"GET"},
      *     name="category_show",
-     *     requirements={"id": "[1-9]\d*"},
      * )
      */
-    public function show(Category $category): Response
+    public function show(Category $category, RecipeRepository $recipeRepository): Response
     {
-        return $this->render(
+        //dump($recipeRepository->findByCategory($category));
+        return $this->render
+        (
             'category/show.html.twig',
-            ['category' => $category]
+            ['category' => $category,
+                'recipes'=>$recipeRepository->findByCategory($category)
+            ]
+        );
+    }
+    /**
+     * Create action.
+     *
+     * @param \Symfony\Component\HttpFoundation\Request $request            HTTP request
+     * @param \App\Repository\CategoryRepository        $categoryRepository Category repository
+     *
+     * @return \Symfony\Component\HttpFoundation\Response HTTP response
+     *
+     * @throws \Doctrine\ORM\ORMException
+     * @throws \Doctrine\ORM\OptimisticLockException
+     *
+     * @Route(
+     *     "/create",
+     *     methods={"GET", "POST"},
+     *     name="category_create",
+     * )
+     */
+    public function create(Request $request, CategoryRepository $categoryRepository): Response
+    {
+        $category = new Category();
+        $form = $this->createForm(CategoryType::class, $category);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+
+            $categoryRepository->save($category);
+
+            $this->addFlash('success', 'message_created_successfully');
+
+            return $this->redirectToRoute('category_index');
+        }
+
+        return $this->render(
+            'category/create.html.twig',
+            ['form' => $form->createView()]
+        );
+    }
+    /**
+     * Edit action.
+     *
+     * @param \Symfony\Component\HttpFoundation\Request $request            HTTP request
+     * @param \App\Entity\Category                      $category           Category entity
+     * @param \App\Repository\CategoryRepository        $categoryRepository Category repository
+     *
+     * @return \Symfony\Component\HttpFoundation\Response HTTP response
+     *
+     * @throws \Doctrine\ORM\ORMException
+     * @throws \Doctrine\ORM\OptimisticLockException
+     *
+     * @Route(
+     *     "/{id}/edit",
+     *     methods={"GET", "PUT"},
+     *     requirements={"id": "[1-9]\d*"},
+     *     name="category_edit",
+     * )
+     */
+    public function edit(Request $request, Category $category, CategoryRepository $categoryRepository): Response
+    {
+        $form = $this->createForm(CategoryType::class, $category, ['method' => 'PUT']);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid())
+        {
+
+            $categoryRepository->save($category);
+
+            $this->addFlash('success', 'Edycja się powiodła!');
+
+            return $this->redirectToRoute('category_index');
+        }
+
+        return $this->render(
+            'category/edit.html.twig',
+            [
+                'form' => $form->createView(),
+                'category' => $category,
+            ]
+        );
+    }
+
+    /**
+     * Delete action.
+     *
+     * @param \Symfony\Component\HttpFoundation\Request $request            HTTP request
+     * @param \App\Entity\Category                      $category           Category entity
+     * @param \App\Repository\CategoryRepository        $categoryRepository Category repository
+     *
+     * @return \Symfony\Component\HttpFoundation\Response HTTP response
+     *
+     * @throws \Doctrine\ORM\ORMException
+     * @throws \Doctrine\ORM\OptimisticLockException
+     *
+     * @Route(
+     *     "/{id}/delete",
+     *     methods={"GET", "DELETE"},
+     *     requirements={"id": "[1-9]\d*"},
+     *     name="category_delete",
+     * )
+     */
+    public function delete(Request $request, Category $category, CategoryRepository $categoryRepository): Response
+    {
+        $form = $this->createForm(CategoryType::class, $category, ['method' => 'DELETE']);
+        $form->handleRequest($request);
+
+        if ($request->isMethod('DELETE') && !$form->isSubmitted()) {
+            $form->submit($request->request->get($form->getName()));
+        }
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $categoryRepository->delete($category);
+            $this->addFlash('success', 'Usunięcie kategorii się powiodło');
+
+            return $this->redirectToRoute('category_index');
+        }
+
+        return $this->render(
+            'category/delete.html.twig',
+            [
+                'form' => $form->createView(),
+                'category' => $category,
+            ]
         );
     }
 }

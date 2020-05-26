@@ -11,12 +11,11 @@
             <dt>{{ 'ID kategorii'|trans }}</dt>
             <dd>{{ category.id }}</dd>
             <dt>{{ 'Nazwa kategorii'|trans }}</dt>
-            <dt>{{ category.category_name}}</dt>
+            <dd>{{ category.category_name}}</dd>
             <dt>{{ 'Przepisy'|trans }}</dt>
-
-
-
-
+{% for recipe in category.getRecipes %}
+            {{ recipe.recipe_name }}<br>
+{% endfor %}
         </dl>
         <p>
             <a href="{{ url('category_index') }}" title="{{ 'action_back_to_list'|trans }}">

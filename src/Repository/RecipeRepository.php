@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\Recipe;
+use App\Entity\Category;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 use Doctrine\ORM\QueryBuilder;
@@ -59,4 +60,5 @@ class RecipeRepository extends ServiceEntityRepository
         return $queryBuilder ?? $this->createQueryBuilder('recipe');
 
     }
+
 }
