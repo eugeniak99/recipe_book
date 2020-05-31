@@ -1,0 +1,32 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    {{ 'Informacje o komentarzu'|trans({'%id%': comment.id|default('')}) }}
+{% endblock %}
+
+{% block body %}
+    <h1>{{ 'Informacje o komentarzu'|trans({'%id%': comment.id|default('')}) }}</h1>
+    {% if comment is defined and comment|length %}
+        <dl class="dl-horizontal">
+            <dt>{{ 'ID'|trans }}</dt>
+            <dd>{{ comment.id }}</dd>
+            <dt>{{ 'Data dodania'|trans }}</dt>
+            <dd>{{ comment.comment_date|date('Y/m/d')}}</dd>
+            <dt>{{ 'Zawartość'|trans }}</dt>
+
+            <dd>{{ comment.comment_content }}</dd>
+
+        </dl>
+
+
+        <p>
+            <a href="{{ url('comment_index') }}" title="{{ 'action_back_to_list'|trans }}">
+                {{ 'Przejź do listy komentarzy'|trans }}
+            </a>
+        </p>
+    {% else %}
+        <p>
+            {{ 'message_item_not_found'|trans }}
+        </p>
+    {% endif %}
+{% endblock %}
