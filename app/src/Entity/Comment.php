@@ -2,15 +2,11 @@
 /**
  * Comment entity.
  */
+
 namespace App\Entity;
 
 use DateTimeInterface;
-
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
-use Gedmo\Mapping\Annotation as Gedmo;
-use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
@@ -34,22 +30,31 @@ class Comment
      *
      * @var DateTimeInterface
      *
+     * @Assert\DateTime
+     *
      * @ORM\Column(type="datetime")
      */
     public $comment_date;
 
     /**
      * Comment content.
+     *
      *  @var string
      *
+     *
      * @ORM\Column(type="string", length=255)
+     *
+     * @Assert\Type(type="string")
+     * @Assert\NotBlank
+     * @Assert\Length(
+     *     min="3",
+     *     max="255",
+     *     )
      */
     public $comment_content;
 
     /**
      * Getter for id.
-     *
-     * @return int|null
      */
     public function getId(): ?int
     {
@@ -58,8 +63,6 @@ class Comment
 
     /**
      * Getter for comment date.
-     *
-     * @return DateTimeInterface|null
      */
     public function getCommentDate(): ?\DateTimeInterface
     {
@@ -69,7 +72,6 @@ class Comment
     /**
      * Setter for Comment Date.
      *
-     * @param DateTimeInterface $comment_date
      * @return $this
      */
     public function setCommentDate(\DateTimeInterface $comment_date): self
@@ -81,8 +83,6 @@ class Comment
 
     /**
      * Getter for Comment Content.
-     *
-     * @return string|null
      */
     public function getCommentContent(): ?string
     {
@@ -92,7 +92,6 @@ class Comment
     /**
      * Setter for Comment content.
      *
-     * @param string $comment_content
      * @return $this
      */
     public function setCommentContent(string $comment_content): self

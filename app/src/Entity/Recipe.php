@@ -7,6 +7,9 @@ use App\Repository\RecipeRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Mapping\Annotation as Gedmo;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Class Recipe.
@@ -31,6 +34,8 @@ class Recipe
      *
      * @var DateTimeInterface
      *
+     * @Assert\DateTime
+     *
      * @ORM\Column(type="datetime")
      */
     public $creation_date;
@@ -47,6 +52,12 @@ class Recipe
      *
      * @var string
      *
+     * @Assert\Type(type="string")
+     * @Assert\NotBlank
+     * @Assert\Length(
+     *     min="3",
+     *     max="45",
+     *     )
      * @ORM\Column(type="string", length=45)
      */
     public $recipe_name;
@@ -55,6 +66,13 @@ class Recipe
      * Recipe Description.
      *
      * @var string
+     *
+     * @Assert\Type(type="string")
+     * @Assert\NotBlank
+     * @Assert\Length(
+     *     min="3",
+     *     max="45",
+     *     )
      *
      * @ORM\Column(type="string", length=255)
      */

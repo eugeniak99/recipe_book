@@ -3,10 +3,9 @@
 namespace App\Repository;
 
 use App\Entity\Category;
-
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
-use Doctrine\Persistence\ManagerRegistry;
 use Doctrine\ORM\QueryBuilder;
+use Doctrine\Persistence\ManagerRegistry;
 
 /**
  * @method Category|null find($id, $lockMode = null, $lockVersion = null)
@@ -36,7 +35,9 @@ class CategoryRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, Category::class);
     }
-// ...
+
+    // ...
+
     /**
      * Save record.
      *
@@ -50,6 +51,7 @@ class CategoryRepository extends ServiceEntityRepository
         $this->_em->persist($category);
         $this->_em->flush($category);
     }
+
     /**
      * Delete record.
      *
@@ -85,8 +87,5 @@ class CategoryRepository extends ServiceEntityRepository
     private function getOrCreateQueryBuilder(QueryBuilder $queryBuilder = null): QueryBuilder
     {
         return $queryBuilder ?? $this->createQueryBuilder('category');
-
     }
-
-
 }

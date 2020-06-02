@@ -47,7 +47,43 @@ class CommentController extends AbstractController
             ['pagination' => $pagination]
         );
     }
+    /**
+     * Create action.
+     *
+     * @param \Symfony\Component\HttpFoundation\Request $request            HTTP request
+     * @param \App\Repository\CommentRepository        $commentRepository Comment repository
+     *
+     * @return \Symfony\Component\HttpFoundation\Response HTTP response
+     *
+     * @throws \Doctrine\ORM\ORMException
+     * @throws \Doctrine\ORM\OptimisticLockException
+     *
+     * @Route(
+     *     "/create",
+     *     methods={"GET", "POST"},
+     *     name="comment_create",
+     * )
+     */
+    public function create(Request $request, CommentRepository $commentRepository): Response
+    {
+        $comment = new Comment();
+        $form = $this->createForm(CommentType::class, $comment);
+        $form->handleRequest($request);
 
+        if ($form->isSubmitted() && $form->isValid()) {
+            $comment->setCommentDate(new \DateTime());
+
+            $commentRepository->save($comment);
+            $this->addFlash('success', 'Dodanie nowego komentarza się powiodło');
+
+            return $this->redirectToRoute('comment_index');
+        }
+
+        return $this->render(
+            'comment/create.html.twig',
+            ['form' => $form->createView()]
+        );
+    }
     /**
      * Show action.
      *
@@ -155,41 +191,5 @@ class CommentController extends AbstractController
             ]
         );
     }
-    /**
-     * Create action.
-     *
-     * @param \Symfony\Component\HttpFoundation\Request $request            HTTP request
-     * @param \App\Repository\CommentRepository        $commentRepository Comment repository
-     *
-     * @return \Symfony\Component\HttpFoundation\Response HTTP response
-     *
-     * @throws \Doctrine\ORM\ORMException
-     * @throws \Doctrine\ORM\OptimisticLockException
-     *
-     * @Route(
-     *     "/create",
-     *     methods={"GET", "POST"},
-     *     name="comment_create",
-     * )
-     */
-    public function create(Request $request, CommentRepository $commentRepository): Response
-    {
-        $comment = new Comment();
-        $form = $this->createForm(CommentType::class, $comment);
-        $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
-            $comment->setCommentDate(new \DateTime());
-
-            $commentRepository->save($comment);
-            $this->addFlash('success', 'message_created_successfully');
-
-            return $this->redirectToRoute('comment_index');
-        }
-
-        return $this->render(
-            'comment/create.html.twig',
-            ['form' => $form->createView()]
-        );
-    }
 }

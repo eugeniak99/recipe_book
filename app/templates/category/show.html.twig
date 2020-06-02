@@ -14,7 +14,7 @@
             <dd>{{ category.category_name}}</dd>
             <dt>{{ 'Przepisy'|trans }}</dt>
 {% for recipe in category.getRecipes %}
-           <a href="{{ url('recipe_show',{id: recipe.id}) }}">{{ recipe.recipe_name }}<br>
+    <a href="{{ url('recipe_show',{id: recipe.id}) }}">{{ recipe.recipe_name }}<br>
     </a>
 {% endfor %}
         </dl>

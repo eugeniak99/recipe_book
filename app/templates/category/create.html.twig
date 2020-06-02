@@ -2,11 +2,11 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}
-    {{ 'title_category_create'|trans }}
+    {{ 'Dodaj nową kategorię'|trans }}
 {% endblock %}
 
 {% block body %}
-    <h1>{{ 'title_category_create'|trans }}</h1>
+    <h1>{{ 'Dodaj nową kategorię'|trans }}</h1>
     {{ form_start(form, { method: 'POST', action: url('category_create') }) }}
     {{ form_widget(form) }}
     <div class="form-group row float-sm-right">

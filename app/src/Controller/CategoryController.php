@@ -6,15 +6,14 @@
 namespace App\Controller;
 
 use App\Entity\Category;
-
+use App\Form\CategoryType;
 use App\Repository\CategoryRepository;
 use App\Repository\RecipeRepository;
+use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use \Knp\Component\Pager\PaginatorInterface;
-use \Symfony\Component\HttpFoundation\Request;
-use App\Form\CategoryType;
 
 /**
  *  Class CategoryController.
@@ -26,9 +25,9 @@ class CategoryController extends AbstractController
     /**
      * Index action.
      *
-     * @param \Symfony\Component\HttpFoundation\Request $request HTTP request
-     * @param \App\Repository\CategoryRepository $categoryRepository Category repository
-     * @param \Knp\Component\Pager\PaginatorInterface $paginator Paginator
+     * @param \Symfony\Component\HttpFoundation\Request $request            HTTP request
+     * @param \App\Repository\CategoryRepository        $categoryRepository Category repository
+     * @param \Knp\Component\Pager\PaginatorInterface   $paginator          Paginator
      *
      * @return \Symfony\Component\HttpFoundation\Response HTTP response
      *
@@ -44,41 +43,17 @@ class CategoryController extends AbstractController
             $request->query->getInt('page', 1),
             CategoryRepository::PAGINATOR_ITEMS_PER_PAGE
         );
+
         return $this->render(
             'category/index.html.twig',
             ['pagination' => $pagination]
         );
     }
-
-    /**
-     * Show action.
-     *
-     * @param \App\Entity\Category $category Category entity
-     *
-     * @return \Symfony\Component\HttpFoundation\Response HTTP response
-     *
-     * @Route(
-     *     "/{id}",
-     *     methods={"GET"},
-     *     name="category_show",
-     * )
-     */
-    public function show(Category $category, RecipeRepository $recipeRepository): Response
-    {
-        //dump($recipeRepository->findByCategory($category));
-        return $this->render
-        (
-            'category/show.html.twig',
-            ['category' => $category,
-                'recipes'=>$recipeRepository->findByCategory($category)
-            ]
-        );
-    }
     /**
      * Create action.
      *
-     * @param \Symfony\Component\HttpFoundation\Request $request        HTTP request
-     * @param \App\Repository\CategoryRepository            $categoryRepository Category repository
+     * @param \Symfony\Component\HttpFoundation\Request $request            HTTP request
+     * @param \App\Repository\CategoryRepository        $categoryRepository Category repository
      *
      * @return \Symfony\Component\HttpFoundation\Response HTTP response
      *
@@ -109,6 +84,29 @@ class CategoryController extends AbstractController
             ['form' => $form->createView()]
         );
     }
+    /**
+     * Show action.
+     *
+     * @param \App\Entity\Category $category Category entity
+     *
+     * @return \Symfony\Component\HttpFoundation\Response HTTP response
+     *
+     * @Route(
+     *     "/{id}",
+     *     methods={"GET"},
+     *     name="category_show",
+     * )
+     */
+    public function show(Category $category, RecipeRepository $recipeRepository): Response
+    {
+        //dump($recipeRepository->findByCategory($category));
+        return $this->render(
+            'category/show.html.twig',
+            ['category' => $category,
+                'recipes' => $recipeRepository->findByCategory($category),
+            ]
+        );
+    }
 
 
 
@@ -136,9 +134,7 @@ class CategoryController extends AbstractController
         $form = $this->createForm(CategoryType::class, $category, ['method' => 'PUT']);
         $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid())
-        {
-
+        if ($form->isSubmitted() && $form->isValid()) {
             $categoryRepository->save($category);
 
             $this->addFlash('success', 'Edycja się powiodła!');
