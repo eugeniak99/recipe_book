@@ -10,7 +10,7 @@ use Doctrine\Migrations\AbstractMigration;
 /**
  * Auto-generated Migration: Please modify to your needs!
  */
-final class Version20200528163454 extends AbstractMigration
+final class Version20200606173622 extends AbstractMigration
 {
     public function getDescription() : string
     {
@@ -22,7 +22,9 @@ final class Version20200528163454 extends AbstractMigration
         // this up() migration is auto-generated, please modify it to your needs
         $this->abortIf($this->connection->getDatabasePlatform()->getName() !== 'mysql', 'Migration can only be executed safely on \'mysql\'.');
 
-        $this->addSql('CREATE TABLE tag (id INT AUTO_INCREMENT NOT NULL, tag_name VARCHAR(45) NOT NULL, PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
+
+        $this->addSql('ALTER TABLE marks CHANGE recipe_id recipe_id INT DEFAULT NULL, CHANGE user_id user_id INT UNSIGNED DEFAULT NULL');
+        $this->addSql('ALTER TABLE users CHANGE roles roles JSON NOT NULL');
     }
 
     public function down(Schema $schema) : void
@@ -30,6 +32,9 @@ final class Version20200528163454 extends AbstractMigration
         // this down() migration is auto-generated, please modify it to your needs
         $this->abortIf($this->connection->getDatabasePlatform()->getName() !== 'mysql', 'Migration can only be executed safely on \'mysql\'.');
 
-        $this->addSql('DROP TABLE tag');
+
+        $this->addSql('ALTER TABLE comments CHANGE author_id author_id INT UNSIGNED DEFAULT NULL, CHANGE recipe_id recipe_id INT DEFAULT NULL');
+        $this->addSql('ALTER TABLE marks CHANGE recipe_id recipe_id INT DEFAULT NULL, CHANGE user_id user_id INT UNSIGNED DEFAULT NULL');
+        $this->addSql('ALTER TABLE users CHANGE roles roles LONGTEXT CHARACTER SET utf8mb4 NOT NULL COLLATE `utf8mb4_bin`');
     }
 }

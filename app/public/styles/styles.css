@@ -24,24 +24,43 @@ a
 label
 {
 
-    padding: 1%;
+
     background-color: white;
 
 }
 input
 {
-    padding-bottom: 1%;
+
     padding-top: 1%;
-    width:50%;
+
 
 }
-button {
-    border-bottom: 20px;
 
-}
 .mb-3
 
 {
     background-color: white;
 }
 
+.author
+{
+    color:green;
+    font-style: italic ;
+    font-weight: bold;
+}
+.date
+{
+    font-style: italic;
+}
+input
+{
+    margin:1%;
+}
+ul
+{
+    margin: 2%;
+}
+legend
+{
+    background-color: white;
+}

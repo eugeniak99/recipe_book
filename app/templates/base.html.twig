@@ -9,6 +9,7 @@
     {% endblock %}
 </head>
 <body>
+{% if is_granted ('ROLE_USER') %}
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <a class="navbar-brand" href="#">Książka kucharska</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -17,9 +18,7 @@
 
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
-            <li class="nav-item active">
-                <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
-            </li>
+
             <li class="nav-item">
                 <a class="nav-link" href="{{url('recipe_index') }}">Przepisy</a>
             </li>
@@ -28,11 +27,23 @@
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="{{ url('tag_index') }}">Tagi</a>
+                {% if is_granted('ROLE_ADMIN') %}
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="{{ url('comment_index') }}">Komentarze</a>
             </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{{ url('user_index') }}">Użytkownicy</a>
             </li>
+            {% endif %}
+
+            <li class="nav-item">
+                <a class="nav-link" href="{{ url('password_edit', {id: app.user.id}) }}">Zmień hasło</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{{ url('userdata_edit', {id: app.user.userData.id}) }}">Zmień dane użytkownika</a>
+            </li>
+
             <li class="nav-item">
                 <a class="nav-link" href="{{ url('app_logout') }}">Wyloguj się</a>
             </li>
@@ -43,6 +54,7 @@
         </form>
     </div>
 </nav>
+{% endif %}
 {% if app.user %}
     <div class="mb-3">
        Jesteś zalogowany jako {{ app.user.username }}

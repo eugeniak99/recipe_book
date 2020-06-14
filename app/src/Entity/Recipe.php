@@ -3,12 +3,9 @@
 namespace App\Entity;
 
 use DateTimeInterface;
-use App\Repository\RecipeRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
-use Gedmo\Mapping\Annotation as Gedmo;
-use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
@@ -21,6 +18,7 @@ class Recipe
 {
     /**
      * Primary key.
+     *
      * @var int
      *
      * @ORM\Id()
@@ -42,8 +40,8 @@ class Recipe
 
     /**
      * Rating.
-     *
-     * @ORM\Column(type="integer")
+     * @var float
+     * @ORM\Column(type="float", nullable=true)
      */
     public $rating;
 
@@ -71,7 +69,7 @@ class Recipe
      * @Assert\NotBlank
      * @Assert\Length(
      *     min="3",
-     *     max="45",
+     *     max="255",
      *     )
      *
      * @ORM\Column(type="string", length=255)
@@ -82,7 +80,6 @@ class Recipe
      * Category.
      *
      * @var \App\Entity\Category Category
-     *
      *
      * @ORM\ManyToOne(targetEntity=Category::class, inversedBy="recipes")
      * @ORM\JoinColumn(nullable=false)
@@ -101,12 +98,23 @@ class Recipe
      * )
      * @ORM\JoinTable(name="recipes_tags")
      */
-
     private $tags;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Comment::class, mappedBy="recipe")
+     */
+    private $comments;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Mark::class, mappedBy="recipe")
+     */
+    private $marks;
 
     public function __construct()
     {
         $this->tags = new ArrayCollection();
+        $this->comments = new ArrayCollection();
+        $this->marks = new ArrayCollection();
     }
 
     /**
@@ -118,6 +126,7 @@ class Recipe
     {
         return $this->id;
     }
+
     /**
      * Getter for Creation Date.
      *
@@ -127,6 +136,7 @@ class Recipe
     {
         return $this->creation_date;
     }
+
     /**
      * Setter for Creation Date.
      *
@@ -138,6 +148,7 @@ class Recipe
 
         return $this;
     }
+
     /**
      * Getter for Updated at.
      *
@@ -149,13 +160,15 @@ class Recipe
     }
 
     /**
-     * Setter for Rating
+     * Setter for Rating.
      *
      * @param int $rating
-     * return $this
+     *                      return $this
      */
     public function setRating(int $rating): self
     {
+
+
         $this->rating = $rating;
 
         return $this;
@@ -163,9 +176,6 @@ class Recipe
 
     /**
      * Getter for Recipe Name.
-     *
-     * @return string|null
-     *
      */
     public function getRecipeName(): ?string
     {
@@ -175,7 +185,6 @@ class Recipe
     /**
      * Setter for Recipe Name.
      *
-     * @param string $recipe_name
      * @return $this
      */
     public function setRecipeName(string $recipe_name): self
@@ -199,6 +208,7 @@ class Recipe
      * Setter for Recipe Description.
      *
      * @param string $recipe_description Recipe Description
+     *
      * @return $this
      */
     public function setRecipeDescription(string $recipe_description): self
@@ -210,8 +220,6 @@ class Recipe
 
     /**
      * Getter for Category.
-     *
-     * @return Category|null
      */
     public function getCategory(): ?Category
     {
@@ -221,7 +229,6 @@ class Recipe
     /**
      * Setter for Category.
      *
-     * @param Category|null $category
      * @return $this
      */
     public function setCategory(?Category $category): self
@@ -254,6 +261,68 @@ class Recipe
     {
         if ($this->tags->contains($tag)) {
             $this->tags->removeElement($tag);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Comment[]
+     */
+    public function getComments(): Collection
+    {
+        return $this->comments;
+    }
+
+    public function addComment(Comment $comment): self
+    {
+        if (!$this->comments->contains($comment)) {
+            $this->comments[] = $comment;
+            $comment->setRecipe($this);
+        }
+
+        return $this;
+    }
+
+    public function removeComment(Comment $comment): self
+    {
+        if ($this->comments->contains($comment)) {
+            $this->comments->removeElement($comment);
+            // set the owning side to null (unless already changed)
+            if ($comment->getRecipe() === $this) {
+                $comment->setRecipe(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Mark[]
+     */
+    public function getMarks(): Collection
+    {
+        return $this->marks;
+    }
+
+    public function addMark(Mark $mark): self
+    {
+        if (!$this->marks->contains($mark)) {
+            $this->marks[] = $mark;
+            $mark->setRecipe($this);
+        }
+
+        return $this;
+    }
+
+    public function removeMark(Mark $mark): self
+    {
+        if ($this->marks->contains($mark)) {
+            $this->marks->removeElement($mark);
+            // set the owning side to null (unless already changed)
+            if ($mark->getRecipe() === $this) {
+                $mark->setRecipe(null);
+            }
         }
 
         return $this;

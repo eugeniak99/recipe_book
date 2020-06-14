@@ -3,9 +3,12 @@
 namespace App\Entity;
 
 use App\Repository\UserRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 
 /**
  *
@@ -76,6 +79,29 @@ class User implements UserInterface
      * @ORM\Column(type="string")
      */
     private $password;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Comment::class, mappedBy="author")
+     */
+    private $comments;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Mark::class, mappedBy="user")
+     */
+    private $marks;
+
+    /**
+     *
+     * @ORM\OneToOne(targetEntity=UserData::class, mappedBy="identity", cascade={"persist", "remove"})
+     *
+     */
+    private $userData;
+
+    public function __construct()
+    {
+        $this->comments = new ArrayCollection();
+        $this->marks = new ArrayCollection();
+    }
 
     /**
      * Getter for id.
@@ -193,4 +219,100 @@ class User implements UserInterface
         // If you store any temporary, sensitive data on the user, clear it here
         // $this->plainPassword = null;
     }
+
+    /**
+     * @return Collection|Comment[]
+     */
+    public function getComments(): Collection
+    {
+        return $this->comments;
+    }
+
+    public function addComment(Comment $comment): self
+    {
+        if (!$this->comments->contains($comment)) {
+            $this->comments[] = $comment;
+            $comment->setAuthor($this);
+        }
+
+        return $this;
+    }
+
+    public function removeComment(Comment $comment): self
+    {
+        if ($this->comments->contains($comment)) {
+            $this->comments->removeElement($comment);
+            // set the owning side to null (unless already changed)
+            if ($comment->getAuthor() === $this) {
+                $comment->setAuthor(null);
+            }
+        }
+
+        return $this;
+    }
+    public function __toString() {
+        return $this->email;
+
+    }
+
+    /**
+     * @return Collection|Mark[]
+     */
+    public function getMarks(): Collection
+    {
+        return $this->marks;
+    }
+
+    public function addMark(Mark $mark): self
+    {
+        if (!$this->marks->contains($mark)) {
+            $this->marks[] = $mark;
+            $mark->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeMark(Mark $mark): self
+    {
+        if ($this->marks->contains($mark)) {
+            $this->marks->removeElement($mark);
+            // set the owning side to null (unless already changed)
+            if ($mark->getUser() === $this) {
+                $mark->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * Getter for UserData.
+     *
+     * @return UserData|null
+     */
+    public function getUserData(): ?UserData
+    {
+        return $this->userData;
+    }
+
+    /**
+     * Setter for UserData.
+     *
+     * @param UserData|null $userData
+     * @return $this
+     */
+    public function setUserData(?UserData $userData): self
+    {
+        $this->userData = $userData;
+
+        // set (or unset) the owning side of the relation if necessary
+        $newIdentity = null === $userData ? null : $this;
+        if ($userData->getIdentity() !== $newIdentity) {
+            $userData->setIdentity($newIdentity);
+        }
+
+        return $this;
+    }
+
 }

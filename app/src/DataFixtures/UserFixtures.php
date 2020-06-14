@@ -14,6 +14,7 @@ use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
  */
 class UserFixtures extends AbstractBaseFixtures
 {
+    public const USER_REFERENCE = 'users';
     /**
      * Password encoder.
      *
@@ -40,6 +41,7 @@ class UserFixtures extends AbstractBaseFixtures
     {
         $this->createMany(10, 'users', function ($i) {
             $user = new User();
+            $user->setUserData($this->getRandomReference('users_data'));
             $user->setEmail(sprintf('user%d@example.com', $i));
             $user->setRoles([User::ROLE_USER]);
             $user->setPassword(
@@ -49,11 +51,16 @@ class UserFixtures extends AbstractBaseFixtures
                 )
             );
 
+            $this->addReference(self::USER_REFERENCE, $user);
+
             return $user;
+
         });
+
 
         $this->createMany(3, 'admins', function ($i) {
             $user = new User();
+            $user->setUserData($this->getRandomReference('users_data'));
             $user->setEmail(sprintf('admin%d@example.com', $i));
             $user->setRoles([User::ROLE_USER, User::ROLE_ADMIN]);
             $user->setPassword(
@@ -67,5 +74,11 @@ class UserFixtures extends AbstractBaseFixtures
         });
 
         $manager->flush();
+
+    }
+
+    public function getDependencies(): array
+    {
+        return [UserDataFixtures::class];
     }
 }

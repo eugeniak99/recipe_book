@@ -3,10 +3,9 @@
 namespace App\Repository;
 
 use App\Entity\Recipe;
-use App\Entity\Category;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
-use Doctrine\Persistence\ManagerRegistry;
 use Doctrine\ORM\QueryBuilder;
+use Doctrine\Persistence\ManagerRegistry;
 
 /**
  * @method Recipe|null find($id, $lockMode = null, $lockVersion = null)
@@ -41,11 +40,20 @@ class RecipeRepository extends ServiceEntityRepository
      * Query all records.
      *
      * @return \Doctrine\ORM\QueryBuilder Query builder
+     *
+     * @throws \Doctrine\ORM\NonUniqueResultException
      */
     public function queryAll(): QueryBuilder
     {
+        /* return $this->getOrcreateQueryBuilder()
+             ->select('AVG(recipe.marks) as rating')
+             ->leftJoin('recipe.marks', 'recipe_marks')
+             ->groupBy('recipe.id')
+           ->orderBy('recipe.creation_date', 'DESC');
+*/
+
         return $this->getOrCreateQueryBuilder()
-            ->orderBy('recipe.creation_date', 'DESC');
+          ->orderBy('recipe.creation_date', 'DESC');
     }
 
     /**
@@ -58,8 +66,8 @@ class RecipeRepository extends ServiceEntityRepository
     private function getOrCreateQueryBuilder(QueryBuilder $queryBuilder = null): QueryBuilder
     {
         return $queryBuilder ?? $this->createQueryBuilder('recipe');
-
     }
+
     /**
      * Save record.
      *

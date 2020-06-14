@@ -32,5 +32,8 @@
     <button class="btn btn-lg btn-primary" type="submit">
         Zaloguj się
     </button>
+    <a href="{{ url('app_register') }}" class="btn btn-link" style="background-color: white">
+        {{ 'Nie masz jeszcze konta? Załóż je tutaj'|trans }}
+    </a>
 </form>
 {% endblock %}

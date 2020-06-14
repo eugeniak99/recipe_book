@@ -1,11 +1,11 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}
-    {{ 'Usuwanie kategorii'|trans({'%id%': recipe.id|default('')}) }}
+    {{ 'Usuwanie przepisu'|trans({'%id%': recipe.id|default('')}) }}
 {% endblock %}
 
 {% block body %}
-    <h1>{{ 'Usuń kategorię'|trans({'%id%': recipe.id|default('')}) }} {{ recipe.recipe_name }}</h1>
+    <h1>{{ 'Usuń przepis'|trans({'%id%': recipe.id|default('')}) }} {{ recipe.recipe_name }}</h1>
   
     {{ form_start(form, { method: 'DELETE', action: url('recipe_delete', {id: recipe.id}) }) }}
     {{ form_widget(form) }}

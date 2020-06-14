@@ -1,20 +1,20 @@
 {% extends 'base.html.twig' %}
+
+{% block title %}Formularz rejestracji{% endblock %}
+
 {% block body %}
-    <div class="row">
-        <div class="col-lg-12">
-            <h1 class="mt-5">Create new account</h1>
-            <div class="col-lg-6">
-                {{ form_start(form, {'attr': {'class': 'form-horizontal'}}) }}
+    <h1>Formularz rejestracji</h1>
 
-                {{ form_label(form.email) }}
-                {{ form_widget(form.email, {'attr': {'class': 'form-control'}}) }}
-                {{ form_label(form.password) }}
-                {{ form_widget(form.password, {'attr': {'class': 'form-control'}}) }}
+    {{ form_start(registrationForm) }}
+        {{ form_row(registrationForm.email) }}
+        {{ form_row(registrationForm.plainPassword) }}
+    {{ form_row(registrationForm.userData) }}
+        {{ form_row(registrationForm.agreeTerms) }}
 
-                <br>
-                <input type="submit" value="Create" class="btn btn-success">
-                {{ form_end(form) }}
-            </div>
-        </div>
-    </div>
+
+        <button type="submit" class="btn btn-lg btn-primary" >Zajestruj się</button>
+    <a href="{{ url('app_login') }}" class="btn btn-link" style="background-color: white">
+        {{ 'Posiadasz już konto? Zaloguj się'|trans }}
+    </a>
+    {{ form_end(registrationForm) }}
 {% endblock %}

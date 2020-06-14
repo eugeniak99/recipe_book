@@ -6,7 +6,6 @@
 namespace App\DataFixtures;
 
 use App\Entity\Comment;
-use Doctrine\ORM\Query\AST\CollectionMemberExpression;
 use Doctrine\Persistence\ObjectManager;
 
 /**
@@ -25,10 +24,22 @@ class CommentFixtures extends AbstractBaseFixtures
             $comment = new Comment();
             $comment->setCommentContent($this->faker->sentence);
             $comment->setCommentDate($this->faker->dateTimeBetween('-100 days', '-1 days'));
-
+            $comment->setAuthor($this->getRandomReference('users'));
+            $comment->setRecipe($this->getRandomReference('recipes'));
             $this->manager->persist($comment);
         }
 
         $manager->flush();
+    }
+
+    /**
+     * This method must return an array of fixtures classes
+     * on which the implementing class depends on.
+     *
+     * @return array Array of dependencies
+     */
+    public function getDependencies(): array
+    {
+        return [UserFixtures::class, RecipeFixtures::class];
     }
 }

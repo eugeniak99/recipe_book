@@ -1,20 +1,20 @@
 <?php
 /**
- * Comment type.
+ * Mark type.
  */
 
 namespace App\Form;
 
-use App\Entity\Comment;
+use App\Entity\Mark;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 /**
- * Class CommentType.
+ * Class MarkType.
  */
-class CommentType extends AbstractType
+class MarkType extends AbstractType
 {
     /**
      * Builds the form.
@@ -30,12 +30,12 @@ class CommentType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder->add(
-            'comment_content',
-            TextType::class,
+            'mark',
+            IntegerType::class,
             [
-                'label' => 'Zawartość',
+                'label' => 'Ocena od 1 do 5',
                 'required' => true,
-                'attr' => ['max_length' => 255],
+                'attr' => ['max_length' => 1],
             ]
         );
     }
@@ -47,7 +47,7 @@ class CommentType extends AbstractType
      */
     public function configureOptions(OptionsResolver $resolver): void
     {
-        $resolver->setDefaults(['data_class' => Comment::class]);
+        $resolver->setDefaults(['data_class' => Mark::class]);
     }
 
     /**
@@ -60,6 +60,6 @@ class CommentType extends AbstractType
      */
     public function getBlockPrefix(): string
     {
-        return 'comment';
+        return 'mark';
     }
 }

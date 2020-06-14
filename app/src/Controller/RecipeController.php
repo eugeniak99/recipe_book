@@ -5,14 +5,21 @@
 
 namespace App\Controller;
 
+use App\Entity\Comment;
+use App\Entity\Mark;
 use App\Entity\Recipe;
+use App\Form\CommentMarkForm;
+use App\Form\RecipeType;
+use App\Repository\CommentRepository;
+use App\Repository\MarkRepository;
 use App\Repository\RecipeRepository;
+use Exception;
+use Knp\Component\Pager\PaginatorInterface;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use \Knp\Component\Pager\PaginatorInterface;
-use \Symfony\Component\HttpFoundation\Request;
-use App\Form\RecipeType;
 
 /**
  *  Class RecipeController.
@@ -22,11 +29,70 @@ use App\Form\RecipeType;
 class RecipeController extends AbstractController
 {
     /**
+     * Show action.
+     *
+     * @param \App\Entity\Recipe $recipe Recipe entity
+     *
+     * @return \Symfony\Component\HttpFoundation\Response HTTP response
+     *
+     * @Route(
+     *     "/{id}",
+     *     methods={"GET", "POST"},
+     *     name="recipe_show",
+     *     requirements={"id": "[1-9]\d*"},
+     * )
+     */
+    public function show(Request $request, RecipeRepository $recipeRepository, CommentRepository $commentRepository, MarkRepository $markRepository, int $id): Response
+    {
+        $recipe = $recipeRepository->find($id);
+
+        $comment = new Comment();
+        $form = $this->createForm(CommentMarkForm::class);
+        $form->handleRequest($request);
+        $mark = new Mark();
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $formData = $form->getData();
+            $mark = $formData['mark'];
+            $comment = $formData['comment_content'];
+
+            $comment->setRecipe($recipe);
+            $comment->setAuthor($this->getUser());
+            $comment->setCommentDate(new \DateTime());
+            $commentRepository->save($comment);
+
+            $mark->setRecipe($recipe);
+            $mark->setUser($this->getUser());
+
+                $markRepository->save($mark);
+
+                $rating = $markRepository->calculateAvg($recipe);
+                var_dump($rating);
+                $recipe->setRating($rating);
+
+                $recipeRepository->save($recipe);
+
+
+            $this->addFlash('success', 'Dodanie nowego komentarza się powiodło');
+            $this->addFlash('success', 'Dodanie nowej oceny się powiodło');
+
+            return $this->redirectToRoute('recipe_show', ['id' => $id]);
+        }
+
+        return $this->render('recipe/show.html.twig',
+                [
+                    'recipe' => $recipe,
+                    'form' => $form->createView(),
+                ]
+            );
+    }
+
+    /**
      * Index action.
      *
-     * @param \Symfony\Component\HttpFoundation\Request $request        HTTP request
-     * @param \App\Repository\RecipeRepositoryRepository            $recipeRepository Recipe repository
-     * @param \Knp\Component\Pager\PaginatorInterface   $paginator      Paginator
+     * @param \Symfony\Component\HttpFoundation\Request  $request          HTTP request
+     * @param \App\Repository\RecipeRepositoryRepository $recipeRepository Recipe repository
+     * @param \Knp\Component\Pager\PaginatorInterface    $paginator        Paginator
      *
      * @return \Symfony\Component\HttpFoundation\Response HTTP response
      *
@@ -42,38 +108,19 @@ class RecipeController extends AbstractController
             $request->query->getInt('page', 1),
             RecipeRepository::PAGINATOR_ITEMS_PER_PAGE
         );
+
         return $this->render(
             'recipe/index.html.twig',
-            ['pagination' => $pagination]
+            ['pagination' => $pagination,
+                ]
         );
     }
 
     /**
-     * Show action.
-     *
-     * @param \App\Entity\Recipe $recipe Recipe entity
-     *
-     * @return \Symfony\Component\HttpFoundation\Response HTTP response
-     *
-     * @Route(
-     *     "/{id}",
-     *     methods={"GET"},
-     *     name="recipe_show",
-     *     requirements={"id": "[1-9]\d*"},
-     * )
-     */
-    public function show(Recipe $recipe): Response
-    {
-        return $this->render(
-            'recipe/show.html.twig',
-            ['recipe' => $recipe]
-        );
-    }
-    /**
      * Create action.
      *
-     * @param \Symfony\Component\HttpFoundation\Request $request        HTTP request
-     * @param \App\Repository\RecipeRepository            $recipeRepository Recipe repository
+     * @param \Symfony\Component\HttpFoundation\Request $request          HTTP request
+     * @param \App\Repository\RecipeRepository          $recipeRepository Recipe repository
      *
      * @return \Symfony\Component\HttpFoundation\Response HTTP response
      *
@@ -94,6 +141,7 @@ class RecipeController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $recipe->setCreationDate(new \DateTime());
+            $recipe->setRating(0);
             $recipeRepository->save($recipe);
             $this->addFlash('success', 'Dodawania nowego przepisu się powiodło!');
 
@@ -109,9 +157,9 @@ class RecipeController extends AbstractController
     /**
      * Edit action.
      *
-     * @param \Symfony\Component\HttpFoundation\Request $request        HTTP request
-     * @param \App\Entity\Recipe                         $recipe           Recipe entity
-     * @param \App\Repository\RecipeRepository            $recipeRepository Recipe repository
+     * @param \Symfony\Component\HttpFoundation\Request $request          HTTP request
+     * @param \App\Entity\Recipe                        $recipe           Recipe entity
+     * @param \App\Repository\RecipeRepository          $recipeRepository Recipe repository
      *
      * @return \Symfony\Component\HttpFoundation\Response HTTP response
      *
@@ -124,6 +172,7 @@ class RecipeController extends AbstractController
      *     requirements={"id": "[1-9]\d*"},
      *     name="recipe_edit",
      * )
+     * @Security("is_granted('ROLE_ADMIN')")
      */
     public function edit(Request $request, Recipe $recipe, RecipeRepository $recipeRepository): Response
     {
@@ -149,9 +198,9 @@ class RecipeController extends AbstractController
     /**
      * Delete action.
      *
-     * @param \Symfony\Component\HttpFoundation\Request $request        HTTP request
+     * @param \Symfony\Component\HttpFoundation\Request $request          HTTP request
      * @param \App\Entity\Recipe                        $recipe           Recipe entity
-     * @param \App\Repository\RecipeRepository            $recipeRepository Recipe repository
+     * @param \App\Repository\RecipeRepository          $recipeRepository Recipe repository
      *
      * @return \Symfony\Component\HttpFoundation\Response HTTP response
      *
@@ -164,6 +213,7 @@ class RecipeController extends AbstractController
      *     requirements={"id": "[1-9]\d*"},
      *     name="recipe_delete",
      * )
+     * @Security("is_granted('ROLE_ADMIN')")
      */
     public function delete(Request $request, Recipe $recipe, RecipeRepository $recipeRepository): Response
     {

@@ -13,6 +13,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 
 /**
  * Class Tag Controller.
@@ -87,6 +88,7 @@ class TagController extends AbstractController
      *     methods={"GET", "POST"},
      *     name="tag_create",
      * )
+     * @Security("is_granted('ROLE_ADMIN')")
      */
     public function create(Request $request, TagRepository $tagRepository): Response
     {
@@ -125,6 +127,7 @@ class TagController extends AbstractController
      *     requirements={"id": "[1-9]\d*"},
      *     name="tag_edit",
      * )
+     * @Security("is_granted('ROLE_ADMIN')")
      */
     public function edit(Request $request, Tag $tag, TagRepository $tagRepository): Response
     {
@@ -167,6 +170,7 @@ class TagController extends AbstractController
      *     requirements={"id": "[1-9]\d*"},
      *     name="tag_delete",
      * )
+     * @Security("is_granted('ROLE_ADMIN')")
      */
     public function delete(Request $request, Tag $tag, TagRepository $tagRepository): Response
     {

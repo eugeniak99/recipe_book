@@ -6,6 +6,7 @@ use App\Entity\Comment;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 use Doctrine\ORM\QueryBuilder;
+use Doctrine\ORM\Query\Expr\Join;
 
 /**
  * @method Comment|null find($id, $lockMode = null, $lockVersion = null)
@@ -84,5 +85,5 @@ class CommentRepository extends ServiceEntityRepository
         $this->_em->remove($comment);
         $this->_em->flush($comment);
     }
-}
+ }
 

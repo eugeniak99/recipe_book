@@ -1,0 +1,23 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    {{ 'Edycja danych'|trans({'%id%': user.id|default('')}) }}
+{% endblock %}
+
+{% block body %}
+    <h1>{{ 'Edycja danych'|trans({'%id%': user.id|default('')}) }}</h1>
+    {{ form_start(form) }}
+    {{ form_row(form.nickname) }}
+    {{ form_row(form.name) }}
+    {{ form_row(form.surname) }}
+
+
+
+
+    <div class="form-group row float-sm-right">
+        <input type="submit" value="{{ 'Zatwierdź zmiany'|trans }}" class="btn btn-primary" />
+    </div>
+
+    {{ form_end(form) }}
+
+{% endblock %}

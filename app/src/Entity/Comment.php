@@ -41,17 +41,28 @@ class Comment
      *
      *  @var string
      *
-     *
      * @ORM\Column(type="string", length=255)
      *
      * @Assert\Type(type="string")
      * @Assert\NotBlank
+     *
      * @Assert\Length(
      *     min="3",
      *     max="255",
      *     )
      */
     public $comment_content;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="comments")
+     */
+    private $author;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Recipe::class, inversedBy="comments")
+     * @ORM\JoinColumn(nullable=true)
+     */
+    private $recipe;
 
     /**
      * Getter for id.
@@ -97,6 +108,36 @@ class Comment
     public function setCommentContent(string $comment_content): self
     {
         $this->comment_content = $comment_content;
+
+        return $this;
+    }
+
+    public function getAuthor(): ?User
+    {
+        return $this->author;
+    }
+
+    /**
+     * @return $this
+     */
+    public function setAuthor(?User $author): self
+    {
+        $this->author = $author;
+
+        return $this;
+    }
+
+    public function getRecipe(): ?Recipe
+    {
+        return $this->recipe;
+    }
+
+    /**
+     * @return $this
+     */
+    public function setRecipe(?Recipe $recipe): self
+    {
+        $this->recipe = $recipe;
 
         return $this;
     }

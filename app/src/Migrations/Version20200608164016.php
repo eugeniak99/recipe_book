@@ -10,7 +10,7 @@ use Doctrine\Migrations\AbstractMigration;
 /**
  * Auto-generated Migration: Please modify to your needs!
  */
-final class Version20200518125825 extends AbstractMigration
+final class Version20200608164016 extends AbstractMigration
 {
     public function getDescription() : string
     {
@@ -22,9 +22,10 @@ final class Version20200518125825 extends AbstractMigration
         // this up() migration is auto-generated, please modify it to your needs
         $this->abortIf($this->connection->getDatabasePlatform()->getName() !== 'mysql', 'Migration can only be executed safely on \'mysql\'.');
 
-        $this->addSql('ALTER TABLE recipes ADD category_id INT NOT NULL');
-        $this->addSql('ALTER TABLE recipes ADD CONSTRAINT FK_A369E2B512469DE2 FOREIGN KEY (category_id) REFERENCES categories (id)');
-        $this->addSql('CREATE INDEX IDX_A369E2B512469DE2 ON recipes (category_id)');
+        $this->addSql('CREATE TABLE users_data (id INT AUTO_INCREMENT NOT NULL, nickname VARCHAR(45) NOT NULL, name VARCHAR(45) NOT NULL, surname VARCHAR(45) NOT NULL, PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
+
+        $this->addSql('ALTER TABLE marks CHANGE recipe_id recipe_id INT DEFAULT NULL, CHANGE user_id user_id INT UNSIGNED DEFAULT NULL');
+        $this->addSql('ALTER TABLE users CHANGE roles roles JSON NOT NULL');
     }
 
     public function down(Schema $schema) : void
@@ -32,8 +33,9 @@ final class Version20200518125825 extends AbstractMigration
         // this down() migration is auto-generated, please modify it to your needs
         $this->abortIf($this->connection->getDatabasePlatform()->getName() !== 'mysql', 'Migration can only be executed safely on \'mysql\'.');
 
-        $this->addSql('ALTER TABLE recipes DROP FOREIGN KEY FK_A369E2B512469DE2');
-        $this->addSql('DROP INDEX IDX_A369E2B512469DE2 ON recipes');
-        $this->addSql('ALTER TABLE recipes DROP category_id');
+        $this->addSql('DROP TABLE users_data');
+
+        $this->addSql('ALTER TABLE marks CHANGE recipe_id recipe_id INT DEFAULT NULL, CHANGE user_id user_id INT UNSIGNED DEFAULT NULL');
+        $this->addSql('ALTER TABLE users CHANGE roles roles LONGTEXT CHARACTER SET utf8mb4 NOT NULL COLLATE `utf8mb4_bin`');
     }
 }
