@@ -2,7 +2,9 @@
 
 namespace App\Repository;
 
+use App\Entity\Category;
 use App\Entity\Recipe;
+use App\Entity\Tag;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\QueryBuilder;
 use Doctrine\Persistence\ManagerRegistry;
@@ -24,7 +26,7 @@ class RecipeRepository extends ServiceEntityRepository
      *
      * @constant int
      */
-    const PAGINATOR_ITEMS_PER_PAGE = 5;
+    const PAGINATOR_ITEMS_PER_PAGE = 10;
 
     /**
      * RecipeRepository constructor.
@@ -35,25 +37,49 @@ class RecipeRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, Recipe::class);
     }
+    /**
+    /**
+     * Apply filters to paginated list.
+     *
+     * @param \Doctrine\ORM\QueryBuilder $queryBuilder Query builder
+     * @param array                      $filters      Filters array
+     *
+     * @return \Doctrine\ORM\QueryBuilder Query builder
+     */
+    private function applyFiltersToList(QueryBuilder $queryBuilder, array $filters = []): QueryBuilder
+    {
+        if (isset($filters['category']) && $filters['category'] instanceof Category) {
+            $queryBuilder->andWhere('category = :category')
+                ->setParameter('category', $filters['category']);
+        }
+        if (isset($filters['tag']) && $filters['tag'] instanceof Tag) {
+            $queryBuilder->andWhere('tags IN (:tag)')
+                ->setParameter('tag', $filters['tag']);
+        }
 
+        return $queryBuilder;
+    }
     /**
      * Query all records.
      *
-     * @return \Doctrine\ORM\QueryBuilder Query builder
+     * @param array $filters Filters array
      *
-     * @throws \Doctrine\ORM\NonUniqueResultException
+     * @return \Doctrine\ORM\QueryBuilder Query builder
      */
-    public function queryAll(): QueryBuilder
+    public function queryAll(array $filters = []): QueryBuilder
     {
-        /* return $this->getOrcreateQueryBuilder()
-             ->select('AVG(recipe.marks) as rating')
-             ->leftJoin('recipe.marks', 'recipe_marks')
-             ->groupBy('recipe.id')
-           ->orderBy('recipe.creation_date', 'DESC');
-*/
 
-        return $this->getOrCreateQueryBuilder()
-          ->orderBy('recipe.creation_date', 'DESC');
+        $queryBuilder=$this->getOrCreateQueryBuilder()
+            ->select(
+        'partial recipe.{id, creation_date, rating, recipe_name, recipe_description}',
+        'partial category.{id, category_name}',
+                'partial tags.{id, tag_name}')
+        ->join('recipe.category', 'category')
+            ->leftJoin('recipe.tags', 'tags')
+        ->orderBy('recipe.rating', 'DESC');
+        $queryBuilder = $this->applyFiltersToList($queryBuilder, $filters);
+
+        return $queryBuilder;
     }
 
     /**
@@ -95,4 +121,6 @@ class RecipeRepository extends ServiceEntityRepository
         $this->_em->remove($recipe);
         $this->_em->flush($recipe);
     }
+
+
 }

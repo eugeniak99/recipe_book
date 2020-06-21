@@ -1,6 +1,9 @@
 body
 {
     background-image: url("kuchnia-grecka2.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+
 }
 table
 {
@@ -64,3 +67,9 @@ legend
 {
     background-color: white;
 }
+p
+{
+    color: white;
+    font-weight: bold;
+}
+

@@ -6,6 +6,7 @@ namespace App\Controller;
 use App\Entity\UserData;
 use App\Repository\UserDataRepository;
 use App\Form\UserDataType;
+use App\Service\UserDataService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -19,11 +20,27 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 class UserDataController extends AbstractController
 {
     /**
+     * Mark service.
+     *
+     * @var \App\Service\UserDataService
+     */
+    private $userDataService;
+    /**
+     * RecipeController constructor.
+     *
+     * @param \App\Service\UserDataService  $userDataService  UserData service
+     *
+     */
+    public function __construct(UserDataService $userDataService)
+    {
+        $this->userDataService=$userDataService;
+    }
+    /**
      * Edit action.
      *
      * @param \Symfony\Component\HttpFoundation\Request $request           HTTP request
      * @param \App\Entity\UserData                      $userData           UserData entity
-     * @param \App\Repository\UserDataRepository         $userDataRepository UserData repository
+     *
      *
      * @return \Symfony\Component\HttpFoundation\Response HTTP response
      *
@@ -41,13 +58,13 @@ class UserDataController extends AbstractController
      *
      *
      */
-    public function edit(Request $request, UserData $userData, UserDataRepository $userDataRepository): Response
+    public function edit(Request $request, UserData $userData): Response
     {
         $form = $this->createForm(UserDataType::class, $userData, ['method' => 'PUT']);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $userDataRepository->save($userData);
+            $this->userDataService->save($userData);
 
             $this->addFlash('success', 'Edycja się powiodła!');
 

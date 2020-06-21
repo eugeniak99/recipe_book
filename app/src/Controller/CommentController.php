@@ -14,6 +14,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
+use App\Service\CommentService;
 
 /**
  *  Class CommentController.
@@ -23,11 +24,26 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 class CommentController extends AbstractController
 {
     /**
+     * Comment service.
+     *
+     * @var \App\Service\CommentService
+     */
+    private $commentService;
+
+    /**
+     * CommentController constructor.
+     *
+     * @param \App\Service\CommentService $commentervice Comment service
+     */
+    public function __construct(CommentService $commentervice)
+    {
+        $this->commentService = $commentervice;
+    }
+    /**
      * Index action.
      *
      * @param \Symfony\Component\HttpFoundation\Request $request           HTTP request
-     * @param \App\Repository\CommentRepository         $commentRepository Comment repository
-     * @param \Knp\Component\Pager\PaginatorInterface   $paginator         Paginator
+     *
      *
      * @return \Symfony\Component\HttpFoundation\Response HTTP response
      *
@@ -37,13 +53,11 @@ class CommentController extends AbstractController
      * )
      * @Security("is_granted('ROLE_ADMIN')")
      */
-    public function index(Request $request, CommentRepository $commentRepository, PaginatorInterface $paginator): Response
+    public function index(Request $request, PaginatorInterface $paginator): Response
     {
-        $pagination = $paginator->paginate(
-            $commentRepository->queryAll(),
-            $request->query->getInt('page', 1),
-            CommentRepository::PAGINATOR_ITEMS_PER_PAGE
-        );
+        $page = $request->query->getInt('page', 1);
+        $pagination = $this->commentService->createPaginatedList($page);
+
 
         return $this->render(
             'comment/index.html.twig',
@@ -65,9 +79,9 @@ class CommentController extends AbstractController
      * )
      * @Security("is_granted('ROLE_ADMIN')")
      */
-    public function show(Comment $comment, CommentRepository $commentRepository): Response
+    public function show(Comment $comment): Response
     {
-        //dump($recipeRepository->findByCategory($category));
+
         return $this->render(
             'comment/show.html.twig',
             ['comment' => $comment,
@@ -80,7 +94,7 @@ class CommentController extends AbstractController
      *
      * @param \Symfony\Component\HttpFoundation\Request $request           HTTP request
      * @param \App\Entity\Comment                       $comment           Comment entity
-     * @param \App\Repository\CommentRepository         $commentRepository Comment repository
+     *
      *
      * @return \Symfony\Component\HttpFoundation\Response HTTP response
      *
@@ -104,7 +118,7 @@ class CommentController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $commentRepository->save($comment);
+           $this->commentService->save($comment);
 
             $this->addFlash('success', 'Edycja się powiodła!');
 
@@ -125,7 +139,7 @@ class CommentController extends AbstractController
      *
      * @param \Symfony\Component\HttpFoundation\Request $request           HTTP request
      * @param \App\Entity\Comment                       $comment           Comment entity
-     * @param \App\Repository\CommentRepository         $commentRepository Comment repository
+     *
      *
      * @return \Symfony\Component\HttpFoundation\Response HTTP response
      *
@@ -151,7 +165,7 @@ class CommentController extends AbstractController
         }
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $commentRepository->delete($comment);
+            $this->commentService->delete($comment);
             $this->addFlash('success', 'Usuwanie się powiodło');
 
             return $this->redirectToRoute('comment_index');

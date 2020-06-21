@@ -7,8 +7,13 @@
 {% block body %}
     <h1>{{ 'Lista przepisów'|trans }}</h1>
     <p>
+        {% if is_granted('ROLE_ADMIN') %}
     <a href="{{ url('recipe_create')}}" title="{{ 'akcja_create'|trans }}"> {{ 'Utwórz nowy przepis' }}</a>
     </p>
+
+    {% endif %}
+
+
     {% if pagination is defined and pagination.items|length %}
 
         <div class="navigation text-center">
@@ -33,7 +38,31 @@
             </tr>
             </thead>
             <tbody>
+            <p>
+
+                <a href="{{ url('recipe_index') }}" title="{{ 'action_back_to_list'|trans }}">
+                    {{ 'Wróć do listy przepisów'|trans }}
+                </a>
+            </p>
+
+            <p>{{ 'Filtruj według zadanej kategorii' }}</p>
             {% for recipe in pagination.items %}
+<p>
+                <a href="{{ url('recipe_index', {'filters' : {'category' : recipe.category.id}}) }}" title="{{ recipe.category.category_name }}">
+                    {{ recipe.category.category_name }}
+                </a>
+</p>
+
+                {% if recipe.tags is defined and recipe.tags|length %}
+                    {% for tag in recipe.tags %}
+                        <a href="{{ url('recipe_index', {'filters' : {'tag' : tag.id}}) }}" title="{{ tag.tag_name }}">
+                            {{ tag.tag_name }}
+                        </a>
+                    {% endfor %}
+                {% else %}
+                    &nbsp;
+                {% endif %}
+
                 <tr>
                     <td>{{ recipe.id }}</td>
                     <td>{{ recipe.creation_date|date('d/m/Y') }}</td>

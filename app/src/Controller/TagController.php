@@ -8,6 +8,7 @@ namespace App\Controller;
 use App\Entity\Tag;
 use App\Form\TagType;
 use App\Repository\TagRepository;
+use App\Service\TagService;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -23,10 +24,26 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 class TagController extends AbstractController
 {
     /**
+     * Tag service.
+     *
+     * @var \App\Service\TagService
+     */
+    private $tagService;
+
+    /**
+     * TagController constructor.
+     *
+     * @param \App\Service\TagService $tagService Tag service
+     */
+    public function __construct(TagService $tagService)
+    {
+        $this->tagService = $tagService;
+    }
+    /**
      * Index action.
      *
      * @param \Symfony\Component\HttpFoundation\Request $request       HTTP request
-     * @param \App\Repository\TagRepository             $tagRepository Tag repository
+     *
      * @param \Knp\Component\Pager\PaginatorInterface   $paginator     Paginator
      *
      * @return \Symfony\Component\HttpFoundation\Response HTTP response
@@ -36,13 +53,10 @@ class TagController extends AbstractController
      *     name="tag_index",
      * )
      */
-    public function index(Request $request, TagRepository $tagRepository, PaginatorInterface $paginator): Response
+    public function index(Request $request, PaginatorInterface $paginator): Response
     {
-        $pagination = $paginator->paginate(
-            $tagRepository->queryAll(),
-            $request->query->getInt('page', 1),
-            TagRepository::PAGINATOR_ITEMS_PER_PAGE
-        );
+        $page = $request->query->getInt('page', 1);
+        $pagination = $this->tagService->createPaginatedList($page);
 
         return $this->render(
             'tag/index.html.twig',
@@ -76,7 +90,7 @@ class TagController extends AbstractController
      * Create action.
      *
      * @param \Symfony\Component\HttpFoundation\Request $request       HTTP request
-     * @param \App\Repository\TagRepository             $TagRepository Tag repository
+     *
      *
      * @return \Symfony\Component\HttpFoundation\Response HTTP response
      *
@@ -90,14 +104,14 @@ class TagController extends AbstractController
      * )
      * @Security("is_granted('ROLE_ADMIN')")
      */
-    public function create(Request $request, TagRepository $tagRepository): Response
+    public function create(Request $request): Response
     {
         $tag = new Tag();
         $form = $this->createForm(TagType::class, $tag);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $tagRepository->save($tag);
+           $this->tagService->save($tag);
             $this->addFlash('success', 'Tworzenie tagu się powiodło');
 
             return $this->redirectToRoute('tag_index');
@@ -114,7 +128,7 @@ class TagController extends AbstractController
      *
      * @param \Symfony\Component\HttpFoundation\Request $request            HTTP request
      * @param \App\Entity\Tag                     $tag        Tag entity
-     * @param \App\Repository\TagRepository        $tagRepository Tag repository
+     *
      *
      * @return \Symfony\Component\HttpFoundation\Response HTTP response
      *
@@ -137,7 +151,7 @@ class TagController extends AbstractController
         if ($form->isSubmitted() && $form->isValid())
         {
 
-            $tagRepository->save($tag);
+           $this->tagService->save($tag);
 
             $this->addFlash('success', 'Edycja się powiodła!');
 
@@ -157,7 +171,7 @@ class TagController extends AbstractController
      *
      * @param \Symfony\Component\HttpFoundation\Request $request            HTTP request
      * @param \App\Entity\Tag                      $tag          Tag entity
-     * @param \App\Repository\TagRepository        $tagRepository Tag repository
+     *
      *
      * @return \Symfony\Component\HttpFoundation\Response HTTP response
      *
@@ -182,7 +196,7 @@ class TagController extends AbstractController
         }
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $tagRepository->delete($tag);
+            $this->tagService->delete($tag);
             $this->addFlash('success', 'Usuwanie tagu się powiodło');
 
             return $this->redirectToRoute('tag_index');

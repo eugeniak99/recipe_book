@@ -6,9 +6,9 @@
 
 {% block body %}
 <h1>{{ 'Lista kategorii'|trans }}</h1>
-
+{% if is_granted('ROLE_ADMIN') %}
     <a href="{{ url('category_create')}}" title="{{ 'akcja_create'|trans }}"> {{ 'Utwórz nową kategorię' }}</a>
-
+{% endif %}
     {% if pagination is defined and pagination.items|length %}
 
 <div class="navigation text-center">

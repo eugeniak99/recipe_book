@@ -35,6 +35,11 @@ class MarkRepository extends ServiceEntityRepository
         $this->_em->flush($mark);
     }
 
+    /**
+     * @param Recipe $recipe
+     * @return int
+     * @throws NonUniqueResultException
+     */
     public function calculateAvg(Recipe $recipe): int
     {
 

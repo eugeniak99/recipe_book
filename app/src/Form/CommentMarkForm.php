@@ -23,9 +23,16 @@ class CommentMarkForm extends AbstractType
     {
         $builder->add(
             'mark',
-            MarkType::class);
+            MarkType::class,
+
+        [
+            'label'=>false
+        ]);
         $builder->add(
             'comment_content',
-            CommentType::class);
+            CommentType::class,
+        [
+            'label'=>false
+        ]);
     }
 }

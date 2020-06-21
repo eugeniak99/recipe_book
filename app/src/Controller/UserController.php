@@ -13,6 +13,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 
 /**
  *  Class UserController.
@@ -56,7 +57,7 @@ class UserController extends AbstractController
      * @param \Symfony\Component\HttpFoundation\Request $request        HTTP request
      * @param \App\Entity\User                          $user           User entity
      * @param \App\Repository\UserRepository            $UserRepository User repository
-     *  @param \App\Repository\UserDataRepository         $userDataRepository UserData repository
+     *
      *
      * @return \Symfony\Component\HttpFoundation\Response HTTP response
      *
@@ -69,9 +70,9 @@ class UserController extends AbstractController
      *     requirements={"id": "[1-9]\d*"},
      *     name="password_edit",
      * )
-     * 
+     *  @Security("is_granted('ROLE_USER') and is_granted('EDIT', user) or is_granted('ROLE_ADMIN')")
      */
-    public function edit(Request $request, User $user, UserRepository $userRepository, UserPasswordEncoderInterface $passwordEncoder, UserData $userData, UserDataRepository $userDataRepository): Response
+    public function edit(Request $request, User $user, UserRepository $userRepository, UserPasswordEncoderInterface $passwordEncoder): Response
     {
         $form = $this->createForm(ChangePasswordType::class, $user, ['method' => 'PUT']);
         $form->handleRequest($request);

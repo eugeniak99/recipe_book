@@ -44,7 +44,10 @@ class RegistrationFormType extends AbstractType
                 ],
             ])
 
-        ->add('userData', UserDataType::class);
+        ->add('userData', UserDataType::class,
+        [
+        'label'=>false
+        ]);
     }
 
     public function configureOptions(OptionsResolver $resolver)
