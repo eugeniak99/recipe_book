@@ -52,9 +52,10 @@ class RecipeService
      * CategoryService constructor.
      *
      * @param \App\Repository\CategoryRepository      $recipeRepository Recipe repository
+     * @param \Knp\Component\Pager\PaginatorInterface $paginator        Paginator
      * @param \App\Service\CategoryService            $categoryService  Category service
      * @param \App\Service\TagService                 $tagService Tag Service
-     * @param \Knp\Component\Pager\PaginatorInterface $paginator        Paginator
+     *
      */
     public function __construct(RecipeRepository $recipeRepository, PaginatorInterface $paginator, CategoryService $categoryService, TagService $tagService)
     {

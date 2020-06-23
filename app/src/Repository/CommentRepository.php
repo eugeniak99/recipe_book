@@ -1,18 +1,24 @@
 <?php
+/**
+ * Comment repository.
+ */
 
 namespace App\Repository;
 
 use App\Entity\Comment;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
-use Doctrine\Persistence\ManagerRegistry;
 use Doctrine\ORM\QueryBuilder;
-use Doctrine\ORM\Query\Expr\Join;
+use Doctrine\Persistence\ManagerRegistry;
 
 /**
  * @method Comment|null find($id, $lockMode = null, $lockVersion = null)
  * @method Comment|null findOneBy(array $criteria, array $orderBy = null)
  * @method Comment[]    findAll()
  * @method Comment[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ */
+
+/**
+ * Class CommentRepository.
  */
 class CommentRepository extends ServiceEntityRepository
 {
@@ -59,6 +65,7 @@ class CommentRepository extends ServiceEntityRepository
     {
         return $queryBuilder ?? $this->createQueryBuilder('comment');
     }
+
     /**
      * Save record.
      *
@@ -72,6 +79,7 @@ class CommentRepository extends ServiceEntityRepository
         $this->_em->persist($comment);
         $this->_em->flush($comment);
     }
+
     /**
      * Delete record.
      *
@@ -85,5 +93,4 @@ class CommentRepository extends ServiceEntityRepository
         $this->_em->remove($comment);
         $this->_em->flush($comment);
     }
- }
-
+}

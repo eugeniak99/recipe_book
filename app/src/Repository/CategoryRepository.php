@@ -1,5 +1,7 @@
 <?php
-
+/**
+ * Category Repository.
+ */
 namespace App\Repository;
 
 use App\Entity\Category;
@@ -12,6 +14,11 @@ use Doctrine\Persistence\ManagerRegistry;
  * @method Category|null findOneBy(array $criteria, array $orderBy = null)
  * @method Category[]    findAll()
  * @method Category[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ */
+
+/**
+ * Class CategoryRepository
+ * @package App\Repository
  */
 class CategoryRepository extends ServiceEntityRepository
 {

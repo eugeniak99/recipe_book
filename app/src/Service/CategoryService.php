@@ -9,8 +9,10 @@ use App\Repository\CategoryRepository;
 use Knp\Component\Pager\PaginatorInterface;
 use \Knp\Component\Pager\Pagination\PaginationInterface;
 use App\Entity\Category;
+
 /**
- * Class CategoryService.
+ * Class CategoryService
+ * @package App\Service
  */
 class CategoryService
 {

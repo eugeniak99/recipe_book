@@ -2,7 +2,6 @@
 /**
  * Comment entity.
  */
-
 namespace App\Entity;
 
 use DateTimeInterface;

@@ -1,5 +1,7 @@
 <?php
-
+/**
+ * RegistrationForm Type.
+ */
 namespace App\Form;
 
 use App\Entity\User;
@@ -12,8 +14,18 @@ use Symfony\Component\Validator\Constraints\IsTrue;
 use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Constraints\NotBlank;
 
+/**
+ * Class RegistrationFormType
+ * @package App\Form
+ */
 class RegistrationFormType extends AbstractType
 {
+    /**
+     * BuildForm function;
+     *
+     * @param FormBuilderInterface $builder
+     * @param array $options
+     */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
@@ -50,6 +62,11 @@ class RegistrationFormType extends AbstractType
         ]);
     }
 
+    /**
+     * Function ConfigureOptions.
+     *
+     * @param OptionsResolver $resolver
+     */
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([

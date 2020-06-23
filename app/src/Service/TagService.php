@@ -1,8 +1,7 @@
 <?php
 /**
- * Tag service.
+ * Tag Service.
  */
-
 namespace App\Service;
 
 use App\Repository\TagRepository;

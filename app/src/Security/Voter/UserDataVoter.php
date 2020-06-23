@@ -1,5 +1,7 @@
 <?php
-
+/**
+ * UserData Voter.
+ */
 namespace App\Security\Voter;
 
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
@@ -8,6 +10,10 @@ use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Security\Core\Security;
 use App\Entity\UserData;
 
+/**
+ * Class UserDataVoter
+ * @package App\Security\Voter
+ */
 class UserDataVoter extends Voter
 {
 

@@ -1,5 +1,7 @@
 <?php
-
+/**
+ * Recipe entity.
+ */
 namespace App\Entity;
 
 use DateTimeInterface;
@@ -110,6 +112,9 @@ class Recipe
      */
     private $marks;
 
+    /**
+     * Recipe constructor.
+     */
     public function __construct()
     {
         $this->tags = new ArrayCollection();
@@ -257,6 +262,12 @@ class Recipe
         return $this;
     }
 
+    /**
+     * Remove tag.
+     *
+     * @param Tag $tag
+     * @return $this
+     */
     public function removeTag(Tag $tag): self
     {
         if ($this->tags->contains($tag)) {
@@ -267,6 +278,8 @@ class Recipe
     }
 
     /**
+     * Getter for Comments.
+     *
      * @return Collection|Comment[]
      */
     public function getComments(): Collection
@@ -274,6 +287,12 @@ class Recipe
         return $this->comments;
     }
 
+    /**
+     * Add a comment.
+     *
+     * @param Comment $comment
+     * @return $this
+     */
     public function addComment(Comment $comment): self
     {
         if (!$this->comments->contains($comment)) {
@@ -284,6 +303,12 @@ class Recipe
         return $this;
     }
 
+    /**
+     * Remove a comment.
+     *
+     * @param Comment $comment
+     * @return $this
+     */
     public function removeComment(Comment $comment): self
     {
         if ($this->comments->contains($comment)) {
@@ -298,6 +323,8 @@ class Recipe
     }
 
     /**
+     * Getter for Marks.
+     *
      * @return Collection|Mark[]
      */
     public function getMarks(): Collection
@@ -305,6 +332,11 @@ class Recipe
         return $this->marks;
     }
 
+    /**
+     * Add a mark.
+     * @param Mark $mark
+     * @return $this
+     */
     public function addMark(Mark $mark): self
     {
         if (!$this->marks->contains($mark)) {
@@ -315,6 +347,12 @@ class Recipe
         return $this;
     }
 
+    /**
+     * Remove a mark.
+     *
+     * @param Mark $mark
+     * @return $this
+     */
     public function removeMark(Mark $mark): self
     {
         if ($this->marks->contains($mark)) {

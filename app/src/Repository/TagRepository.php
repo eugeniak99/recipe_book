@@ -18,6 +18,11 @@ use Doctrine\ORM\QueryBuilder;
  * @method Tag[]    findAll()
  * @method Tag[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
+
+/**
+ * Class TagRepository
+ * @package App\Repository
+ */
 class TagRepository extends ServiceEntityRepository
 {
     /**

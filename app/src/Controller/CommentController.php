@@ -1,5 +1,7 @@
 <?php
-
+/**
+ * CommentController.
+ */
 namespace App\Controller;
 
 
@@ -53,7 +55,7 @@ class CommentController extends AbstractController
      * )
      * @Security("is_granted('ROLE_ADMIN')")
      */
-    public function index(Request $request, PaginatorInterface $paginator): Response
+    public function index(Request $request): Response
     {
         $page = $request->query->getInt('page', 1);
         $pagination = $this->commentService->createPaginatedList($page);
@@ -112,7 +114,7 @@ class CommentController extends AbstractController
      * @Security("is_granted('ROLE_USER') and is_granted('EDIT', comment) or is_granted('ROLE_ADMIN')")
      *
      */
-    public function edit(Request $request, Comment $comment, CommentRepository $commentRepository): Response
+    public function edit(Request $request, Comment $comment): Response
     {
         $form = $this->createForm(CommentType::class, $comment, ['method' => 'PUT']);
         $form->handleRequest($request);
@@ -155,7 +157,7 @@ class CommentController extends AbstractController
      *
      * @Security("is_granted('ROLE_USER') and is_granted('DELETE', comment) or is_granted('ROLE_ADMIN')")
      */
-    public function delete(Request $request, Comment $comment, CommentRepository $commentRepository): Response
+    public function delete(Request $request, Comment $comment): Response
     {
         $form = $this->createForm(CommentType::class, $comment, ['method' => 'DELETE']);
         $form->handleRequest($request);

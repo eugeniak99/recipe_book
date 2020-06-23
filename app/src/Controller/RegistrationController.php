@@ -1,4 +1,7 @@
 <?php
+/**
+ * Registration Controller.
+ */
 
 namespace App\Controller;
 
@@ -32,13 +35,9 @@ class RegistrationController extends AbstractController
                     $user,
                     $form->get('plainPassword')->getData()
                 ),
-                $user->setRoles(["ROLE_USER"]),
-
-
+                $user->setRoles(['ROLE_USER'])
             );
             $userdata->setIdentity($user);
-
-
 
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($user);

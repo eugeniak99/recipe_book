@@ -1,5 +1,7 @@
 <?php
-
+/**
+ * Class User.
+ */
 namespace App\Entity;
 
 use App\Repository\UserRepository;
@@ -11,6 +13,8 @@ use Symfony\Component\Security\Core\User\UserInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 
 /**
+ *
+ * Class User.
  *
  * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
  * @ORM\Table(
@@ -221,6 +225,7 @@ class User implements UserInterface
     }
 
     /**
+     * Getter for comments.
      * @return Collection|Comment[]
      */
     public function getComments(): Collection
@@ -228,6 +233,12 @@ class User implements UserInterface
         return $this->comments;
     }
 
+    /**
+     * Add a comment.
+     *
+     * @param Comment $comment
+     * @return $this
+     */
     public function addComment(Comment $comment): self
     {
         if (!$this->comments->contains($comment)) {
@@ -238,6 +249,12 @@ class User implements UserInterface
         return $this;
     }
 
+    /**
+     * Remove comment.
+     *
+     * @param Comment $comment
+     * @return $this
+     */
     public function removeComment(Comment $comment): self
     {
         if ($this->comments->contains($comment)) {
@@ -263,6 +280,12 @@ class User implements UserInterface
         return $this->marks;
     }
 
+    /**
+     * Remove mark.
+     *
+     * @param Mark $mark
+     * @return $this
+     */
     public function addMark(Mark $mark): self
     {
         if (!$this->marks->contains($mark)) {
@@ -273,6 +296,12 @@ class User implements UserInterface
         return $this;
     }
 
+    /**
+     * Remove mark.
+     *
+     * @param Mark $mark
+     * @return $this
+     */
     public function removeMark(Mark $mark): self
     {
         if ($this->marks->contains($mark)) {

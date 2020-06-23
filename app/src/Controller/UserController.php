@@ -1,5 +1,7 @@
 <?php
-
+/**
+ * User Controller.
+ */
 namespace App\Controller;
 
 use App\Entity\User;
@@ -14,6 +16,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
+use App\Service\UserService;
 
 /**
  *  Class UserController.
@@ -23,11 +26,28 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 class UserController extends AbstractController
 {
     /**
+     * User service.
+     *
+     * @var \App\Service\UserService
+     */
+    private $userService;
+    /**
+     * RecipeController constructor.
+     *
+     * @param \App\Service\UserService  $userService  User service
+     *
+     *
+     */
+    public function __construct(UserService $userService)
+    {
+        $this->userService = $userService;
+
+    }
+    /**
      * Index action.
      *
      * @param \Symfony\Component\HttpFoundation\Request $request        HTTP request
-     * @param \App\Repository\UserRepository            $userRepository User repository
-     * @param \Knp\Component\Pager\PaginatorInterface   $paginator      Paginator
+     *
      *
      * @return \Symfony\Component\HttpFoundation\Response HTTP response
      *
@@ -36,13 +56,11 @@ class UserController extends AbstractController
      *     name="user_index",
      * )
      */
-    public function index(Request $request, UserRepository $userRepository, PaginatorInterface $paginator): Response
+    public function index(Request $request): Response
     {
-        $pagination = $paginator->paginate(
-            $userRepository->queryAll(),
-            $request->query->getInt('page', 1),
-            UserRepository::PAGINATOR_ITEMS_PER_PAGE
-        );
+        $page = $request->query->getInt('page', 1);
+        $pagination = $this->userService->createPaginatedList($page);
+
 
         return $this->render(
             'user/index.html.twig',
@@ -56,8 +74,8 @@ class UserController extends AbstractController
      *
      * @param \Symfony\Component\HttpFoundation\Request $request        HTTP request
      * @param \App\Entity\User                          $user           User entity
-     * @param \App\Repository\UserRepository            $UserRepository User repository
      *
+     * @param  UserPasswordEncoderInterface   $passwordEncoder
      *
      * @return \Symfony\Component\HttpFoundation\Response HTTP response
      *
@@ -70,9 +88,9 @@ class UserController extends AbstractController
      *     requirements={"id": "[1-9]\d*"},
      *     name="password_edit",
      * )
-     *  @Security("is_granted('ROLE_USER') and is_granted('EDIT', user) or is_granted('ROLE_ADMIN')")
+     *  @Security("is_granted ('ROLE_USER') and is_granted('EDIT', user) or is_granted('ROLE_ADMIN')")
      */
-    public function edit(Request $request, User $user, UserRepository $userRepository, UserPasswordEncoderInterface $passwordEncoder): Response
+    public function edit(Request $request, User $user, UserPasswordEncoderInterface $passwordEncoder): Response
     {
         $form = $this->createForm(ChangePasswordType::class, $user, ['method' => 'PUT']);
         $form->handleRequest($request);
@@ -85,7 +103,7 @@ class UserController extends AbstractController
                 $passwordEncoder->encodePassword(
                     $user,
                     $form->get('password')->getData()));
-            $userRepository->save($user);
+            $this->userService->save($user);
 
             $this->addFlash('success', 'Zmiana hasła się powiodła');
 

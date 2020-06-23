@@ -143,7 +143,7 @@ class TagController extends AbstractController
      * )
      * @Security("is_granted('ROLE_ADMIN')")
      */
-    public function edit(Request $request, Tag $tag, TagRepository $tagRepository): Response
+    public function edit(Request $request, Tag $tag): Response
     {
         $form = $this->createForm(TagType::class, $tag, ['method' => 'PUT']);
         $form->handleRequest($request);
@@ -186,7 +186,7 @@ class TagController extends AbstractController
      * )
      * @Security("is_granted('ROLE_ADMIN')")
      */
-    public function delete(Request $request, Tag $tag, TagRepository $tagRepository): Response
+    public function delete(Request $request, Tag $tag): Response
     {
         $form = $this->createForm(TagType::class, $tag, ['method' => 'DELETE']);
         $form->handleRequest($request);

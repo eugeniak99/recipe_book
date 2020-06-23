@@ -8,6 +8,10 @@ namespace App\Service;
 use App\Entity\UserData;
 use App\Repository\UserDataRepository;
 
+/**
+ * Class UserDataService
+ * @package App\Service
+ */
 class UserDataService
 {
     /**
@@ -33,6 +37,7 @@ class UserDataService
      *
      * UserData $userData UserData entity
      *
+     * @param UserData $userData
      * @throws \Doctrine\ORM\ORMException
      * @throws \Doctrine\ORM\OptimisticLockException
      */

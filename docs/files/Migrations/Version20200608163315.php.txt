@@ -41,3 +41,4 @@ final class Version20200608163315 extends AbstractMigration
         $this->addSql('ALTER TABLE users CHANGE roles roles LONGTEXT CHARACTER SET utf8mb4 NOT NULL COLLATE `utf8mb4_bin`');
     }
 }
+

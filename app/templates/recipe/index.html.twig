@@ -38,30 +38,65 @@
             </tr>
             </thead>
             <tbody>
+
             <p>
 
                 <a href="{{ url('recipe_index') }}" title="{{ 'action_back_to_list'|trans }}">
                     {{ 'Wróć do listy przepisów'|trans }}
                 </a>
             </p>
+            &nbsp;<div class="dropdown">
+                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Filtruj według kategorii
+                </button>
+                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                    {% set newArray = [] %}
+                    {% for recipe in pagination %}
 
-            <p>{{ 'Filtruj według zadanej kategorii' }}</p>
-            {% for recipe in pagination.items %}
-<p>
-                <a href="{{ url('recipe_index', {'filters' : {'category' : recipe.category.id}}) }}" title="{{ recipe.category.category_name }}">
-                    {{ recipe.category.category_name }}
-                </a>
-</p>
-
-                {% if recipe.tags is defined and recipe.tags|length %}
-                    {% for tag in recipe.tags %}
-                        <a href="{{ url('recipe_index', {'filters' : {'tag' : tag.id}}) }}" title="{{ tag.tag_name }}">
-                            {{ tag.tag_name }}
-                        </a>
+                        {% set category=recipe.category %}
+                        {%  if category not in newArray %}
+                            <a class="dropdown-item" href="{{ url('recipe_index', {'filters' : {'category' :category.id}}) }}" title="{{category.category_name }}">
+                                {{category.category_name }}
+                            </a>
+                            {% set newArray = newArray|merge([category]) %}
+                        {% endif %}
                     {% endfor %}
-                {% else %}
-                    &nbsp;
-                {% endif %}
+                </div>
+            </div>
+            <br>
+
+            <div class="dropdown">
+                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  Filtruj według tagu
+                </button>
+                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                    {% set newArray = [] %}
+                    {% for recipe in pagination %}
+
+                    {% if recipe.tags is defined and recipe.tags|length %}
+                        {% for tag in recipe.tags %}
+                            <a class="dropdown-item" href="{{ url('recipe_index', {'filters' : {'tag' : tag.id}}) }}" title="{{ tag.tag_name }}">
+                                {{ tag.tag_name }}
+                            </a>
+
+                        {% endfor %}
+                    {% endif %}
+                    {% endfor %}
+
+
+
+
+            </div>
+            </div>
+
+                <br>
+
+            {% for recipe in pagination.items %}
+
+
+
+
+
 
                 <tr>
                     <td>{{ recipe.id }}</td>

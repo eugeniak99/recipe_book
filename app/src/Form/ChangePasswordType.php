@@ -11,6 +11,10 @@ use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
+/**
+ * Class ChangePasswordType
+ * @package App\Form
+ */
 class ChangePasswordType extends AbstractType
 {
     /**

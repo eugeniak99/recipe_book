@@ -1,4 +1,7 @@
 <?php
+/**
+ * Recipe Repository.
+ */
 
 namespace App\Repository;
 
@@ -14,6 +17,10 @@ use Doctrine\Persistence\ManagerRegistry;
  * @method Recipe|null findOneBy(array $criteria, array $orderBy = null)
  * @method Recipe[]    findAll()
  * @method Recipe[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ */
+
+/**
+ * Class RecipeRepository.
  */
 class RecipeRepository extends ServiceEntityRepository
 {
@@ -37,6 +44,7 @@ class RecipeRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, Recipe::class);
     }
+
     /**
     /**
      * Apply filters to paginated list.
@@ -59,6 +67,7 @@ class RecipeRepository extends ServiceEntityRepository
 
         return $queryBuilder;
     }
+
     /**
      * Query all records.
      *
@@ -68,8 +77,7 @@ class RecipeRepository extends ServiceEntityRepository
      */
     public function queryAll(array $filters = []): QueryBuilder
     {
-
-        $queryBuilder=$this->getOrCreateQueryBuilder()
+        $queryBuilder = $this->getOrCreateQueryBuilder()
             ->select(
         'partial recipe.{id, creation_date, rating, recipe_name, recipe_description}',
         'partial category.{id, category_name}',
@@ -121,6 +129,4 @@ class RecipeRepository extends ServiceEntityRepository
         $this->_em->remove($recipe);
         $this->_em->flush($recipe);
     }
-
-
 }

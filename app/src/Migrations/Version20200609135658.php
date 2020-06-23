@@ -1,5 +1,7 @@
 <?php
-
+/**
+ * Migration Version20200609135658.
+ */
 declare(strict_types=1);
 
 namespace DoctrineMigrations;
@@ -10,13 +12,29 @@ use Doctrine\Migrations\AbstractMigration;
 /**
  * Auto-generated Migration: Please modify to your needs!
  */
+
+/**
+ * Class Version20200609135658
+ * @package DoctrineMigrations
+ */
 final class Version20200609135658 extends AbstractMigration
 {
+    /**
+     * method get description.
+     *
+     * @return string
+     */
     public function getDescription() : string
     {
         return '';
     }
 
+    /**
+     * Method up.
+     *
+     * @param Schema $schema
+     * @throws \Doctrine\DBAL\DBALException\
+     */
     public function up(Schema $schema) : void
     {
         // this up() migration is auto-generated, please modify it to your needs
@@ -28,6 +46,12 @@ final class Version20200609135658 extends AbstractMigration
         $this->addSql('ALTER TABLE users_data CHANGE identity_id identity_id INT UNSIGNED DEFAULT NULL');
     }
 
+    /**
+     * Method down.
+     *
+     * @param Schema $schema
+     * @throws \Doctrine\DBAL\DBALException
+     */
     public function down(Schema $schema) : void
     {
         // this down() migration is auto-generated, please modify it to your needs

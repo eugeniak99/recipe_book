@@ -1,5 +1,7 @@
 <?php
-
+/**
+ * Mark entity.
+ */
 namespace App\Entity;
 
 use App\Repository\MarkRepository;
@@ -38,16 +40,32 @@ class Mark
      */
     private $user;
 
+    /**
+     * Getter for Id.
+     *
+     * @return int|null
+     */
     public function getId(): ?int
     {
         return $this->id;
     }
 
+    /**
+     * Getter for Mark.
+     *
+     * @return int|null
+     */
     public function getMark(): ?int
     {
         return $this->mark;
     }
 
+    /**
+     * Setter for Mark.
+     *
+     * @param int $mark
+     * @return $this
+     */
     public function setMark(int $mark): self
     {
         $this->mark = $mark;
@@ -55,11 +73,22 @@ class Mark
         return $this;
     }
 
+    /**
+     * Getter for Recipe.
+     *
+     * @return Recipe|null
+     */
     public function getRecipe(): ?Recipe
     {
         return $this->recipe;
     }
 
+    /**
+     * Setter for Recipe.
+     *
+     * @param Recipe|null $recipe
+     * @return $this
+     */
     public function setRecipe(?Recipe $recipe): self
     {
         $this->recipe = $recipe;
@@ -67,11 +96,22 @@ class Mark
         return $this;
     }
 
+    /**
+     * Getter for User.
+     *
+     * @return User|null
+     */
     public function getUser(): ?User
     {
         return $this->user;
     }
 
+    /**
+     * Setter for USer.
+     *
+     * @param User|null $user
+     * @return $this
+     */
     public function setUser(?User $user): self
     {
         $this->user = $user;
@@ -79,8 +119,13 @@ class Mark
         return $this;
     }
 
+    /**
+     * Converter to int.
+     *
+     * @return mixed
+     */
     public function __toInt()
     {
-        return $mark;
+        return $this->mark;
     }
 }

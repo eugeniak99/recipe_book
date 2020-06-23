@@ -1,5 +1,7 @@
 <?php
-
+/**
+ * UserData Fixtures.
+ */
 
 namespace App\DataFixtures;
 

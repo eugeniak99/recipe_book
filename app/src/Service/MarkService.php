@@ -24,9 +24,9 @@ class MarkService
      */
     private $markRepository;
     /**
-     * CategoryService constructor.
+     * MarkService constructor.
      *
-     * @param \App\Repository\CategoryRepository      $recipeRepository Category repository
+     * @param \App\Repository\MarkRepository      $markRepository Mark repository
      *
      */
     public function __construct(MarkRepository $markRepository)
@@ -47,6 +47,8 @@ class MarkService
         $this->markRepository->save($mark);
     }
     /**
+     * Method Calculate Average.
+     *
      * @param Recipe $recipe
      * @return int
      * @throws NonUniqueResultException

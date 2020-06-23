@@ -1,5 +1,7 @@
 <?php
-
+/**
+ * CommentVoter.
+ */
 namespace App\Security\Voter;
 
 use App\Entity\Comment;
@@ -8,6 +10,10 @@ use Symfony\Component\Security\Core\Authorization\Voter\Voter;
 use Symfony\Component\Security\Core\Security;
 use Symfony\Component\Security\Core\User\UserInterface;
 
+/**
+ * Class CommentVoter
+ * @package App\Security\Voter
+ */
 class CommentVoter extends Voter
 {
 

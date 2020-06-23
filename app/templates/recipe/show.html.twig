@@ -46,7 +46,7 @@
             <dt>{{ 'Komentarze' }}</dt>
 
             <dd>
-    {% if pagination is defined and pagination.items|length %}
+
                 <ul class="list-group-flush" >
 
                     {% for comment in recipe.getComments %}
@@ -77,7 +77,7 @@
                             {% endif %}
                         </li>
                     {% endfor %}
-                    {% endif %}
+
                </ul>
 
             </dd>

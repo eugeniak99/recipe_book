@@ -1,5 +1,7 @@
 <?php
-
+/**
+ * Class UserData Repository.
+ */
 namespace App\Repository;
 
 use App\Entity\UserData;
@@ -12,12 +14,29 @@ use Doctrine\Persistence\ManagerRegistry;
  * @method UserData[]    findAll()
  * @method UserData[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
+
+/**
+ * Class UserDataRepository
+ * @package App\Repository
+ */
 class UserDataRepository extends ServiceEntityRepository
 {
+    /**
+     * UserDataRepository constructor.
+     * @param ManagerRegistry $registry
+     */
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, UserData::class);
     }
+
+    /**
+     * Save method.
+     *
+     * @param UserData $userData
+     * @throws \Doctrine\ORM\ORMException
+     * @throws \Doctrine\ORM\OptimisticLockException
+     */
     public function save(UserData $userData): void
     {
         $this->_em->persist($userData);

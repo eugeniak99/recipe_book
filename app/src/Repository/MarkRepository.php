@@ -1,5 +1,7 @@
 <?php
-
+/**
+ * Mark Repository.
+ */
 namespace App\Repository;
 
 use App\Entity\Mark;
@@ -14,8 +16,17 @@ use Doctrine\Persistence\ManagerRegistry;
  * @method Mark[]    findAll()
  * @method Mark[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
+
+/**
+ * Class MarkRepository
+ * @package App\Repository
+ */
 class MarkRepository extends ServiceEntityRepository
 {
+    /**
+     * MarkRepository constructor.
+     * @param ManagerRegistry $registry
+     */
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, Mark::class);
@@ -36,10 +47,14 @@ class MarkRepository extends ServiceEntityRepository
     }
 
     /**
+     * Method Calculate Average.
+     *
      * @param Recipe $recipe
      * @return int
      * @throws NonUniqueResultException
      */
+
+
     public function calculateAvg(Recipe $recipe): int
     {
 

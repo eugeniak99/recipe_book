@@ -13,7 +13,6 @@ use App\Form\RecipeType;
 use App\Service\CommentService;
 use App\Service\MarkService;
 use App\Service\RecipeService;
-use Knp\Component\Pager\PaginatorInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -65,7 +64,7 @@ class RecipeController extends AbstractController
     /**
      * Show action.
      *
-     * @param \App\Entity\Recipe $recipe Recipe entity
+     * @param \App\Entity\Recipe                        $recipe  Recipe entity
      * @param \Symfony\Component\HttpFoundation\Request $request HTTP request
      *
      * @return \Symfony\Component\HttpFoundation\Response HTTP response
@@ -79,12 +78,8 @@ class RecipeController extends AbstractController
      */
     public function show(Recipe $recipe, Request $request): Response
     {
-
-
-
         $form = $this->createForm(CommentMarkForm::class);
         $form->handleRequest($request);
-
 
         if ($form->isSubmitted() && $form->isValid()) {
             $formData = $form->getData();
@@ -111,7 +106,7 @@ class RecipeController extends AbstractController
             $this->addFlash('success', 'Dodanie nowej oceny się powiodło');
 
             return $this->redirectToRoute('recipe_show', ['id' => $recipe->getId()]);
-         //_show,  ['id' => $id]);
+            //_show,  ['id' => $id]);
         }
 
         return $this->render('recipe/show.html.twig',
@@ -136,7 +131,6 @@ class RecipeController extends AbstractController
      */
     public function index(Request $request): Response
     {
-
         $pagination = $this->recipeService->createPaginatedList(
             $request->query->getInt('page', 1),
             $request->query->getAlnum('filters', [])
