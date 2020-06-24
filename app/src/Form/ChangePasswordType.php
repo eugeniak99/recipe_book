@@ -34,7 +34,7 @@ class ChangePasswordType extends AbstractType
             'password',
             PasswordType::class,
             [
-                'label' => 'Wprowadź nowe hasło',
+                'label' => 'label_new_password',
                 'required' => true,
                 'attr' => ['max_length' => 255],
             ]

@@ -1,19 +1,19 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}
-    {{ 'Edycja komentarza'|trans({'%id%': comment.id|default('')}) }}
+    {{ 'comment_edit'|trans({'%id%': comment.id|default('')}) }}
 {% endblock %}
 
 {% block body %}
-    <h1>{{ 'Edycja komentarza'|trans({'%id%': comment.id|default('')}) }}</h1>
+    <h1>{{ 'comment_edit'|trans({'%id%': comment.id|default('')}) }}</h1>
     {{ form_start(form, { method: 'PUT', action: url('comment_edit', {id: comment.id}) }) }}
     {{ form_widget(form) }}
     <div class="form-group row float-sm-right">
-        <input type="submit" value="{{ 'Zapisz zmiany'|trans }}" class="btn btn-primary" />
+        <input type="submit" value="{{ 'submit'|trans }}" class="btn btn-primary" />
     </div>
 
-        <a href="{{ url('recipe_index') }}" class="btn btn-link">
-            {{ 'Wróć do listy przepisów'|trans }}
+        <a href="{{ url('comment_index') }}" class="btn btn-link">
+            {{ 'action_back_to_comment_list'|trans }}
         </a>
 
     {{ form_end(form) }}

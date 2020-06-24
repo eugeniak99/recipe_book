@@ -2,6 +2,7 @@
 /**
  * RegistrationForm Type.
  */
+
 namespace App\Form;
 
 use App\Entity\User;
@@ -13,26 +14,27 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\IsTrue;
 use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Constraints\NotBlank;
+use Symfony\Component\Form\Extension\Core\Type\EmailType;
 
 /**
- * Class RegistrationFormType
- * @package App\Form
+ * Class RegistrationFormType.
  */
 class RegistrationFormType extends AbstractType
 {
     /**
-     * BuildForm function;
-     *
+     * BuildForm function;.
      * @param FormBuilderInterface $builder
      * @param array $options
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('email')
+            ->add('email', EmailType::class,
+        ['label' => 'email'])
 
             ->add('agreeTerms', CheckboxType::class, [
                 'mapped' => false,
+'label'=>'agree_terms',
                 'constraints' => [
                     new IsTrue([
                         'message' => 'You should agree to our terms.',
@@ -43,6 +45,8 @@ class RegistrationFormType extends AbstractType
                 // instead of being set onto the object directly,
                 // this is read and encoded in the controller
                 'mapped' => false,
+                'label' => 'label_password',
+
                 'constraints' => [
                     new NotBlank([
                         'message' => 'Please enter a password',
@@ -58,14 +62,12 @@ class RegistrationFormType extends AbstractType
 
         ->add('userData', UserDataType::class,
         [
-        'label'=>false
+        'label' => false,
         ]);
     }
 
     /**
      * Function ConfigureOptions.
-     *
-     * @param OptionsResolver $resolver
      */
     public function configureOptions(OptionsResolver $resolver)
     {

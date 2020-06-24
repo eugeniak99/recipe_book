@@ -1,0 +1,293 @@
+<?xml version="1.0"?>
+<xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
+    <file source-language="en" datatype="plaintext" original="file.ext">
+        <body>
+
+        <trans-unit id="title_recipe_list">
+                                                 <source>title_recipe_list</source>
+                                                 <target>Lista przepisów</target>
+                        </trans-unit>
+        <trans-unit id="label_id">
+                        <source>label_id</source>
+                        <target>ID</target>
+        </trans-unit>
+        <trans-unit id="label_creation_date">
+                                <source>label_creation_date</source>
+                                <target>Data utworzenia</target>
+                </trans-unit>
+
+                 <trans-unit id="label_rating">
+                                         <source>label_rating</source>
+                                         <target>Ranking</target>
+                </trans-unit>
+          <trans-unit id="label_name">
+                                                  <source>label_name</source>
+                                                  <target>Nazwa</target>
+                         </trans-unit>
+
+                     <trans-unit id="label_recipe_description">
+                                                             <source>label_recipe_description</source>
+                                                             <target>Opis przepisu</target>
+                                    </trans-unit>
+          <trans-unit id="category">
+                  <source>category</source>
+                  <target>Kategoria</target>
+           </trans-unit>
+
+           <trans-unit id="action">
+                             <source>action</source>
+                             <target>Działanie</target>
+           </trans-unit>
+           <trans-unit id="action_back_to_list">
+                                        <source>action_back_to_list</source>
+                                        <target>Powrót do listy przepisów</target>
+                      </trans-unit>
+<trans-unit id="akcja_view">
+                                        <source>akcja_view</source>
+                                        <target>Pokaż szczegóły</target>
+                      </trans-unit>
+
+                   <trans-unit id="akcja_edit">
+                                                <source>akcja_edit</source>
+                                                <target>Edytuj</target>
+                              </trans-unit>
+
+                        <trans-unit id="akcja_delete">
+                                                     <source>akcja_delete</source>
+                                                     <target>Usuń</target>
+                                   </trans-unit>
+                      <trans-unit id="akcja_create">
+                                                             <source>akcja_create</source>
+                                                             <target>Dodaj nowy</target>
+                                           </trans-unit>
+             <trans-unit id="recipe_tags">
+                                                                         <source>recipe_tags</source>
+                                                                         <target>Tagi</target>
+                                                       </trans-unit>
+
+                              <trans-unit id="label_add_mark_comment">
+                                         <source>label_add_mark_comment</source>
+                                         <target>Dodaj komentarz i oceń przepis</target>
+                               </trans-unit>
+
+                              <trans-unit id="label_recipe_comments">
+                                         <source>label_recipe_comments</source>
+                                         <target>Komentarze</target>
+                               </trans-unit>
+                               <trans-unit id="submit">
+                                        <source>submit</source>
+                                         <target>Zapisz</target>
+                                </trans-unit>
+
+                                 <trans-unit id="content">
+                                    <source>content</source>
+                                     <target>Zawartość</target>
+                                  </trans-unit>
+
+                                   <trans-unit id="mark">
+                                        <source>mark</source>
+                                         <target>Oceń przepis od 1 do 5</target>
+                                   </trans-unit>
+
+                                   <trans-unit id="recipe_info">
+                                        <source>recipe_info</source>
+                                         <target>informacje o przepisie</target>
+                                   </trans-unit>
+
+                                   <trans-unit id="recipe_edit">
+                                        <source>recipe_edit</source>
+                                         <target>Edycja przepisu</target>
+                                   </trans-unit>
+
+                                   <trans-unit id="recipe_delete">
+                                        <source>recipe_delete</source>
+                                         <target>Usuwanie przepisu</target>
+                                   </trans-unit>
+
+                                   <trans-unit id="recipe_create">
+                                        <source>recipe_create</source>
+                                         <target>Dodaj nowy przepis</target>
+                                   </trans-unit>
+
+                                   <trans-unit id="title_category_list">
+                                        <source>title_category_list</source>
+                                         <target>Lista kategorii</target>
+                                   </trans-unit>
+
+                                   <trans-unit id="category_info">
+                                        <source>category_info</source>
+                                         <target>Szczegóły kategorii</target>
+                                   </trans-unit>
+
+                                   <trans-unit id="category_recipes">
+                                        <source>category_recipes</source>
+                                         <target>Lista przepisów w kategorii</target>
+                                   </trans-unit>
+
+                                   <trans-unit id="action_back_to_category_list">
+                                        <source>action_back_to_category_list</source>
+                                         <target>Wróć do listy kategorii</target>
+                                   </trans-unit>
+
+                                   <trans-unit id="category_edit">
+                                        <source>category_edit</source>
+                                         <target>Edycja kategorii</target>
+                                   </trans-unit>
+
+                                   <trans-unit id="category_delete">
+                                        <source>category_delete</source>
+                                         <target>Usuwanie kategorii</target>
+                                   </trans-unit>
+
+                                   <trans-unit id="category_create">
+                                        <source>category_create</source>
+                                         <target>Dodaj kategorię</target>
+                                   </trans-unit>
+
+                                   <trans-unit id="tag_create">
+                                        <source>tag_create</source>
+                                         <target>Dodaj tag</target>
+                                   </trans-unit>
+
+                                   <trans-unit id="tag_list">
+                                        <source>tag_list</source>
+                                         <target>Lista tagów</target>
+                                   </trans-unit>
+
+                                   <trans-unit id="tag_info">
+                                        <source>tag_info</source>
+                                         <target>Informacje o tagu</target>
+                                   </trans-unit>
+
+                                   <trans-unit id="tag_recipes">
+                                        <source>tag_recipes</source>
+                                         <target>Lista przepisów związanych z danym tagiem</target>
+                                   </trans-unit>
+
+                                   <trans-unit id="action_back_to_tag_list">
+                                        <source>action_back_to_tag_list</source>
+                                         <target>Wróć do listy tagów</target>
+                                   </trans-unit>
+
+                                   <trans-unit id="tag_edit">
+                                        <source>tag_edit</source>
+                                         <target>Edycja tagu</target>
+                                   </trans-unit>
+
+                                   <trans-unit id="tag_delete">
+                                        <source>tag_delete</source>
+                                         <target>Usuwanie tagu</target>
+                                   </trans-unit>
+
+                                   <trans-unit id="comment_list">
+                                        <source>comment_list</source>
+                                         <target>Lista komentarzy</target>
+                                   </trans-unit>
+
+                                   <trans-unit id="label_author">
+                                        <source>label_author</source>
+                                         <target>Autor</target>
+                                   </trans-unit>
+
+                                   <trans-unit id="label_comment_content">
+                                        <source>label_comment_content</source>
+                                         <target>Zawartość</target>
+                                   </trans-unit>
+
+                                   <trans-unit id="comment_info">
+                                        <source>comment_info</source>
+                                         <target>Informacje o komentarzu</target>
+                                   </trans-unit>
+
+                                   <trans-unit id="action_back_to_comment_list">
+                                        <source>action_back_to_comment_list</source>
+                                         <target>Wróć do listy komentarzy</target>
+                                   </trans-unit>
+
+                                   <trans-unit id="comment_edit">
+                                        <source>comment_edit</source>
+                                         <target>Edycja komentarza</target>
+                                   </trans-unit>
+
+                                   <trans-unit id="comment_delete">
+                                        <source>comment_delete</source>
+                                         <target>Usuwanie komentarza</target>
+                                   </trans-unit>
+
+                                   <trans-unit id="user_list">
+                                        <source>user_list</source>
+                                         <target>Lista użytkowników</target>
+                                   </trans-unit>
+
+                                   <trans-unit id="email">
+                                        <source>email</source>
+                                         <target>Email</target>
+                                   </trans-unit>
+
+                                   <trans-unit id="label_nickname">
+                                        <source>label_nickname</source>
+                                         <target>Nickname</target>
+                                   </trans-unit>
+
+                                   <trans-unit id="label_lastname">
+                                        <source>label_lastname</source>
+                                         <target>Nazwisko</target>
+                                   </trans-unit>
+
+                                   <trans-unit id="label_data_change">
+                                        <source>label_data_change</source>
+                                         <target>Zmiana danych</target>
+                                   </trans-unit>
+
+                                   <trans-unit id="label_new_password">
+                                        <source>label_new_password</source>
+                                         <target>Wprowadź nowe hasło</target>
+                                   </trans-unit>
+
+                                   <trans-unit id="new_account">
+                                        <source>new_account</source>
+                                         <target>Nie masz jeszcze konta? Załóż je tutaj</target>
+                                   </trans-unit>
+
+                                   <trans-unit id="old_account">
+                                        <source>old_account</source>
+                                         <target>Posiadasz już konto? Zaloguj się</target>
+                                   </trans-unit>
+
+                                   <trans-unit id="registration">
+                                        <source>registration</source>
+                                         <target>Załóż konto</target>
+                                   </trans-unit>
+
+                                   <trans-unit id="label_password">
+                                        <source>label_password</source>
+                                         <target>Hasło</target>
+                                   </trans-unit>
+
+                                   <trans-unit id="agree_terms">
+                                        <source>agree_terms</source>
+                                         <target>Zapoznałem(am) się z polityką prywatności</target>
+                                   </trans-unit>
+                                   <trans-unit id="message_empty_list">
+                                                   <source>message_empty_list</source>
+                                                   <target>Ta lista jest pusta.</target>
+                                               </trans-unit>
+
+                                   <trans-unit id="message_item_not_found">
+                                        <source>message_item_not_found</source>
+                                         <target>Nie znaleziono takiego ezgemplarza.</target>
+                                   </trans-unit>
+
+                                   <trans-unit id="message_form_error">
+                                        <source>message_form_error</source>
+                                         <target>Błąd formularza!</target>
+                                   </trans-unit>
+
+
+
+
+
+
+        </body>
+    </file>
+  </xliff>

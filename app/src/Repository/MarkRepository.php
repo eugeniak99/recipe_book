@@ -50,12 +50,12 @@ class MarkRepository extends ServiceEntityRepository
      * Method Calculate Average.
      *
      * @param Recipe $recipe
-     * @return int
+     * @return float
      * @throws NonUniqueResultException
      */
 
 
-    public function calculateAvg(Recipe $recipe): int
+    public function calculateAvg(Recipe $recipe): float
     {
 
         $result=$this->createQueryBuilder('rating')

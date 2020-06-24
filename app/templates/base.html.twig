@@ -55,7 +55,7 @@
     </div>
 </nav>
 {% endif %}
-{% if app.user %}
+{% if app.user and is_granted ('ROLE_USER') %}
     <div class="mb-3">
        Jesteś zalogowany jako {{ app.user.userData.nickname }}
     </div>

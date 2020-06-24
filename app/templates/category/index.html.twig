@@ -1,11 +1,11 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}
-    {{ 'Lista kategorii'|trans }}
+    {{ 'title_category_list'|trans }}
 {% endblock %}
 
 {% block body %}
-<h1>{{ 'Lista kategorii'|trans }}</h1>
+<h1>{{ 'title_category_list'|trans }}</h1>
 {% if is_granted('ROLE_ADMIN') %}
     <a href="{{ url('category_create')}}" title="{{ 'akcja_create'|trans }}"> {{ 'Utwórz nową kategorię' }}</a>
 {% endif %}
@@ -18,10 +18,10 @@
 <table class="table table-striped">
     <thead>
     <tr>
-        <th>{{ knp_pagination_sortable(pagination, 'ID kategorii'|trans, 'category.id') }}</th>
-        <th>{{ knp_pagination_sortable(pagination, 'Nazwa Kategorii'|trans, 'category.category_name') }}</th>
+        <th>{{ knp_pagination_sortable(pagination, 'label_id'|trans, 'category.id') }}</th>
+        <th>{{ knp_pagination_sortable(pagination, 'label_name'|trans, 'category.category_name') }}</th>
 
-        <th>{{ 'Działanie'|trans }}</th>
+        <th>{{ 'action'|trans }}</th>
     </tr>
     </thead>
     <tbody>

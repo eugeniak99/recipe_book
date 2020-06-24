@@ -28,7 +28,7 @@ class UserDataFixtures extends AbstractBaseFixtures
             $user_data->setSurname($this->faker->lastName);
             $user_data->setNickname($this->faker->word);
 
-            $user_data->setIdentity($this->getReference(UserFixtures::USER_REFERENCE));
+            $user_data->setIdentity($this->getReference('users'.$i));
 
 
             return $user_data;

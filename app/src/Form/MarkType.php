@@ -33,7 +33,7 @@ class MarkType extends AbstractType
             'mark',
             IntegerType::class,
             [
-                'label' => 'Ocena od 1 do 5',
+                'label' => 'mark',
                 'required' => true,
                 'attr' => ['max_length' => 1],
             ]

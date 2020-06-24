@@ -1,18 +1,18 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}
-    {{ 'Informacje o kategorii'|trans({'%id%': category.id|default('')}) }}
+    {{ 'category_info'|trans({'%id%': category.id|default('')}) }}
 {% endblock %}
 
 {% block body %}
-    <h1>{{ 'Informacje o Kategorii'|trans({'%id%': category.id|default('')}) }}</h1>
+    <h1>{{ 'category_info'|trans({'%id%': category.id|default('')}) }}</h1>
     {% if category is defined and category|length %}
         <dl class="dl-horizontal">
-            <dt>{{ 'ID kategorii'|trans }}</dt>
+            <dt>{{ 'label_id'|trans }}</dt>
             <dd>{{ category.id }}</dd>
-            <dt>{{ 'Nazwa kategorii'|trans }}</dt>
+            <dt>{{ 'label_name'|trans }}</dt>
             <dd>{{ category.category_name}}</dd>
-            <dt>{{ 'Przepisy'|trans }}</dt>
+            <dt>{{ 'category_recipes'|trans }}</dt>
 {% for recipe in category.getRecipes %}
     <a href="{{ url('recipe_show',{id: recipe.id}) }}">{{ recipe.recipe_name }}<br>
     </a>
@@ -21,8 +21,8 @@
 
 
         <p>
-            <a href="{{ url('category_index') }}" title="{{ 'action_back_to_list'|trans }}">
-                {{ 'Przejź do listy kategorii'|trans }}
+            <a href="{{ url('category_index') }}" title="{{ 'action_back_to_category_list'|trans }}">
+                {{ 'action_back_to_category_list'|trans }}
             </a>
         </p>
     {% else %}

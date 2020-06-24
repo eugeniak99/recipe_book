@@ -1,9 +1,9 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Formularz rejestracji{% endblock %}
+{% block title %}{{ 'registration'|trans }}{% endblock %}
 
 {% block body %}
-    <h1>Formularz rejestracji</h1>
+    <h1>{{ 'registration'|trans }}</h1>
 
     {{ form_start(registrationForm) }}
         {{ form_row(registrationForm.email) }}
@@ -12,9 +12,9 @@
         {{ form_row(registrationForm.agreeTerms) }}
 
 
-        <button type="submit" class="btn btn-lg btn-primary" >Zajestruj się</button>
+        <button type="submit" class="btn btn-lg btn-primary" >{{ 'registration'|trans }}</button>
     <a href="{{ url('app_login') }}" class="btn btn-link" style="background-color: white">
-        {{ 'Posiadasz już konto? Zaloguj się'|trans }}
+        {{ 'old_account'|trans }}
     </a>
     {{ form_end(registrationForm) }}
 {% endblock %}

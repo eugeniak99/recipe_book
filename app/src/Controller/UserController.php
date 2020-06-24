@@ -73,7 +73,7 @@ class UserController extends AbstractController
      * Edit action.
      *
      * @param \Symfony\Component\HttpFoundation\Request $request        HTTP request
-     * @param \App\Entity\User                          $user           User entity
+     * @param \App\Entity\User                          $dynia           User entity
      *
      * @param  UserPasswordEncoderInterface   $passwordEncoder
      *
@@ -88,22 +88,22 @@ class UserController extends AbstractController
      *     requirements={"id": "[1-9]\d*"},
      *     name="password_edit",
      * )
-     *  @Security("is_granted ('ROLE_USER') and is_granted('EDIT', user) or is_granted('ROLE_ADMIN')")
+     *  @Security("is_granted ('ROLE_USER') and is_granted('EDIT', dynia) or is_granted('ROLE_ADMIN')")
      */
-    public function edit(Request $request, User $user, UserPasswordEncoderInterface $passwordEncoder): Response
+    public function edit(Request $request, User $dynia, UserPasswordEncoderInterface $passwordEncoder): Response
     {
-        $form = $this->createForm(ChangePasswordType::class, $user, ['method' => 'PUT']);
+        $form = $this->createForm(ChangePasswordType::class, $dynia, ['method' => 'PUT']);
         $form->handleRequest($request);
 
 
         if ($form->isSubmitted() && $form->isValid()) {
 
 
-            $user->setPassword(
+            $dynia->setPassword(
                 $passwordEncoder->encodePassword(
-                    $user,
+                    $dynia,
                     $form->get('password')->getData()));
-            $this->userService->save($user);
+            $this->userService->save($dynia);
 
             $this->addFlash('success', 'Zmiana hasła się powiodła');
 
@@ -114,7 +114,7 @@ class UserController extends AbstractController
             'user/edit_password.html.twig',
             [
                 'form' => $form->createView(),
-                'user' => $user,
+                'user' => $dynia,
             ]
         );
     }

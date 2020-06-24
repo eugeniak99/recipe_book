@@ -36,7 +36,7 @@ class RecipeType extends AbstractType
             'recipe_name',
             TextType::class,
             [
-                'label' => 'Nazwa przepisu',
+                'label' => 'label_name',
                 'required' => true,
                 'attr' => ['max_length' => 64],
             ]
@@ -49,8 +49,8 @@ class RecipeType extends AbstractType
                 'choice_label' => function ($category) {
                     return $category->getCategoryName();
                 },
-                'label' => 'Kategoria',
-                'placeholder' => '--------',
+                'label' => 'category',
+                'placeholder' => 'category',
                 'required' => true,
             ]
         );
@@ -58,7 +58,7 @@ class RecipeType extends AbstractType
             'recipe_description',
             TextType::class,
             [
-                'label' => 'Opis przepisu',
+                'label' => 'label_recipe_description',
                 'required' => true,
                 'attr' => ['max_length' => 255],
             ]
@@ -81,7 +81,7 @@ class RecipeType extends AbstractType
                 'choice_label' => function ($tag) {
                     return $tag->getTagName();
                 },
-                'label' => 'Tagi',
+                'label' => 'recipe_tags',
                 'placeholder' => 'label_none',
                 'required' => false,
                 'expanded' => true,

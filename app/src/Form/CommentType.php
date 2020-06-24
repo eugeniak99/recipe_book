@@ -33,7 +33,8 @@ class CommentType extends AbstractType
             'comment_content',
             TextType::class,
             [
-                'label' => 'Zawartość',
+                'label' => 'label_comment_content',
+
                 'required' => true,
                 'attr' => ['max_length' => 255],
             ]

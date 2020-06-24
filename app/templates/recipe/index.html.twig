@@ -1,14 +1,14 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}
-    {{ 'Lista przepisów'|trans }}
+    {{ 'title_recipe_list'|trans }}
 {% endblock %}
 
 {% block body %}
-    <h1>{{ 'Lista przepisów'|trans }}</h1>
+    <h1>{{ 'title_recipe_list'|trans }}</h1>
     <p>
         {% if is_granted('ROLE_ADMIN') %}
-    <a href="{{ url('recipe_create')}}" title="{{ 'akcja_create'|trans }}"> {{ 'Utwórz nowy przepis' }}</a>
+    <a href="{{ url('recipe_create')}}" title="{{ 'akcja_create'|trans }}"> {{ 'akcja_create'|trans }}</a>
     </p>
 
     {% endif %}
@@ -23,14 +23,14 @@
         <table class="table table-striped">
             <thead>
             <tr>
-                <th>{{ knp_pagination_sortable(pagination, 'ID przepisu'|trans, 'recipe.id') }}</th>
-                <th>{{ knp_pagination_sortable(pagination, 'Data stworzenia'|trans, 'recipe.creation_date') }}</th>
-                <th>{{ knp_pagination_sortable(pagination, 'Ranking'|trans, 'recipe.rating') }}</th>
-                <th>{{ knp_pagination_sortable(pagination, 'Nazwa'|trans, 'recipe.recipe_name') }}</th>
-                <th>{{ knp_pagination_sortable(pagination, 'Opis przepisu'|trans, 'recipe.recipe_description') }}</th>
+                <th>{{ knp_pagination_sortable(pagination, 'label_id'|trans, 'recipe.id') }}</th>
+                <th>{{ knp_pagination_sortable(pagination, 'label_creation_date'|trans, 'recipe.creation_date') }}</th>
+                <th>{{ knp_pagination_sortable(pagination, 'label_rating'|trans, 'recipe.rating') }}</th>
+                <th>{{ knp_pagination_sortable(pagination, 'label_name'|trans, 'recipe.recipe_name') }}</th>
+                <th>{{ knp_pagination_sortable(pagination, 'label_recipe_description'|trans, 'recipe.recipe_description') }}</th>
 
-                <th>{{ 'Kategoria'|trans }}</th>
-                <th>{{ 'Działanie'|trans }}</th>
+                <th>{{ 'category'|trans }}</th>
+                <th>{{ 'action'|trans }}</th>
 
 
 
@@ -42,7 +42,7 @@
             <p>
 
                 <a href="{{ url('recipe_index') }}" title="{{ 'action_back_to_list'|trans }}">
-                    {{ 'Wróć do listy przepisów'|trans }}
+                    {{ 'action_back_to_list'|trans }}
                 </a>
             </p>
             &nbsp;<div class="dropdown">

@@ -1,39 +1,39 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}
-    {{ 'Informacje o przepisie'|trans({'%id%': recipe.id|default('')}) }}
+    {{ 'recipe_info'|trans({'%id%': recipe.id|default('')}) }}
 {% endblock %}
 
 {% block body %}
 
-    <h1>{{ 'Informacje o przepisie'|trans({'%id%': recipe.id|default('')}) }}</h1>
+    <h1>{{ 'recipe_info'|trans({'%id%': recipe.id|default('')}) }}</h1>
     {% if recipe is defined and recipe|length %}
         <dl class="dl-horizontal">
-            <dt>{{ 'ID przepisu'|trans }}</dt>
+            <dt>{{ 'label_id'|trans }}</dt>
             <dd>{{ recipe.id }}</dd>
-            <dt>{{ 'Nazwa przepisu'|trans }}</dt>
+            <dt>{{ 'label_name'|trans }}</dt>
             <dd>{{  recipe.recipe_name }}</dd>
-            <dt>{{ 'Kategoria'|trans }}</dt>
+            <dt>{{ 'category'|trans }}</dt>
             <dd>{{  recipe.category.category_name }}</dd>
-            <dt>{{ 'Opis przepisu'|trans }}</dt>
+            <dt>{{ 'label_recipe_description'|trans }}</dt>
             <dd>{{ recipe.recipe_description }}</dd>
 
-            <dt>{{ 'Data dodania'|trans }}</dt>
+            <dt>{{ 'label_creation_date'|trans }}</dt>
             <dd>{{ recipe.creation_date|format_date('long') }}</dd>
-            <dt>{{ 'Ranking'|trans }}</dt>
+            <dt>{{ 'label_rating'|trans }}</dt>
             <dd>{{ recipe.rating }}</dd>
-            <dt>{{ 'Tagi' }}</dt>
+            <dt>{{ 'recipe_tags'|trans }}</dt>
             {% for tag in recipe.getTags %}
                 <a href="{{ url('tag_show',{id: tag.id}) }}">{{ tag.tag_name }}<br>
                 </a>
             {% endfor %}
 
-            <dt>{{ 'Dodaj nowy komentarz i oceń przepis' }}</dt>
+            <dt>{{ 'label_add_mark_comment'|trans }}</dt>
             <dd> {{ form_start(form, { method: 'POST', action: url('recipe_show', {id: recipe.id}) }) }}
                 {{ form_widget(form) }}
 
                 <div class="form-group row float-sm-right">
-                    <input type="submit" name="submit_comment" value="{{ 'Zapisz'|trans }}" class="btn btn-primary" />
+                    <input type="submit" name="submit_comment" value="{{ 'submit'|trans }}" class="btn btn-primary" />
                 </div>
 
 
@@ -43,7 +43,7 @@
 
 
 
-            <dt>{{ 'Komentarze' }}</dt>
+            <dt>{{ 'label_recipe_comments'|trans }}</dt>
 
             <dd>
 
@@ -85,7 +85,7 @@
         </dl>
         <p>
             <a href="{{ url('recipe_index') }}" title="{{ 'action_back_to_list'|trans }}">
-                {{ 'Wróć do listy przepisów'|trans }}
+                {{ 'action_back_to_list'|trans }}
             </a>
         </p>
     {% else %}

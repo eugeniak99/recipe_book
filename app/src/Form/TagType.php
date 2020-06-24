@@ -33,7 +33,7 @@ class TagType extends AbstractType
             'tag_name',
             TextType::class,
             [
-                'label' => 'Nazwa tagu',
+                'label' => 'label_name',
                 'required' => true,
                 'attr' => ['max_length' => 45],
             ]

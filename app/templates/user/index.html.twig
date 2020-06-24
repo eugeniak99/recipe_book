@@ -1,11 +1,11 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}
-    {{ 'Lista użytkowników'|trans }}
+    {{ 'user_list'|trans }}
 {% endblock %}
 
 {% block body %}
-    <h1>{{ 'Lista użytkowników'|trans }}</h1>
+    <h1>{{ 'user_list'|trans }}</h1>
 
     {% if pagination is defined and pagination.items|length %}
 
@@ -16,16 +16,16 @@
         <table class="table table-striped">
             <thead>
             <tr>
-                <th>{{ knp_pagination_sortable(pagination, 'ID użytkownika'|trans, 'user.id') }}</th>
+                <th>{{ knp_pagination_sortable(pagination, 'label_id'|trans, 'user.id') }}</th>
 
-                <th>{{ knp_pagination_sortable(pagination, 'Email'|trans, 'user.email') }}</th>
+                <th>{{ knp_pagination_sortable(pagination, 'email'|trans, 'user.email') }}</th>
 
-                <th>{{ 'Nickname'|trans }}</th>
-                <th>{{ 'Imię' }}</th>
-                <th>{{ 'Nazwisko' }}</th>
+                <th>{{ 'label_nickname'|trans }}</th>
+                <th>{{ 'label_name'|trans }}</th>
+                <th>{{ 'label_lastname' }}</th>
 
 
-                <th>{{ 'Zmiana danych'|trans }}</th>
+                <th>{{ 'label_data_change'|trans }}</th>
 
 
 
