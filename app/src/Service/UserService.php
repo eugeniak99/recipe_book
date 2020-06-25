@@ -12,6 +12,10 @@ use Knp\Component\Pager\Pagination\PaginationInterface;
 use Knp\Component\Pager\PaginatorInterface;
 
 /**
+ *  @method User|null findOneBy(array $criteria, array $orderBy = null)
+ */
+
+/**
  * Class UserService.
  */
 class UserService
@@ -70,5 +74,18 @@ class UserService
     public function save(User $user): void
     {
         $this->userRepository->save($user);
+    }
+
+    /**
+     * Find One by.
+     *
+     * @param array $criteria
+     * @param array|null $orderBy
+     *
+     * @return User|null
+     */
+    public function findOneBy(array $criteria, array $orderBy = null)
+    {
+        return $this->userRepository->findOneBy($criteria, $orderBy);
     }
 }

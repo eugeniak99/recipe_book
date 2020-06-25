@@ -7,9 +7,11 @@
 {% block body %}
     <h1>{{ 'tag_list'|trans }}</h1>
     {% if pagination is defined and pagination.items|length %}
+        {% if is_granted ('ROLE_ADMIN') %}
         <p>
             <a href="{{ url('tag_create')}}" title="{{ 'akcja_create'|trans }}"> {{ 'tag_create'|trans }}</a>
         </p>
+            {% endif %}
         <div class="navigation text-center">
             {{ knp_pagination_render(pagination) }}
         </div>

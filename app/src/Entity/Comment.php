@@ -53,13 +53,15 @@ class Comment
     public $comment_content;
 
     /**
+     * Author.
+     *
      * @ORM\ManyToOne(targetEntity=User::class, inversedBy="comments")
      */
     private $author;
 
     /**
      * @ORM\ManyToOne(targetEntity=Recipe::class, inversedBy="comments")
-     * @ORM\JoinColumn(nullable=true)
+     * @ORM\JoinColumn(nullable=false)
      */
     private $recipe;
 

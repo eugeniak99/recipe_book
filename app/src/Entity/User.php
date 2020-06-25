@@ -11,6 +11,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  *
@@ -68,6 +69,7 @@ class User implements UserInterface
      *     length=45,
      *     unique=true,
      * )
+     * @Assert\Email
      */
     private $email;
 

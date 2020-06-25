@@ -10,9 +10,11 @@ use App\Entity\Mark;
 use App\Entity\Recipe;
 use App\Form\CommentMarkForm;
 use App\Form\RecipeType;
+use App\Repository\RecipeRepository;
 use App\Service\CommentService;
 use App\Service\MarkService;
 use App\Service\RecipeService;
+use Knp\Component\Pager\PaginatorInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -142,6 +144,38 @@ class RecipeController extends AbstractController
                 ]
         );
     }
+
+// ...
+
+    /**
+     * IndexByRating action.
+     *
+     * @param \Symfony\Component\HttpFoundation\Request $request HTTP request
+     *
+     * @param \Knp\Component\Pager\PaginatorInterface $paginator Paginator
+     *
+     * @return \Symfony\Component\HttpFoundation\Response HTTP response
+     *
+     * @Route(
+     *     "/rating_sort",
+     *     name="recipe_index_rating",
+     * )
+     */
+    public function index_rating(Request $request,PaginatorInterface $paginator): Response
+    {
+        $pagination = $paginator->paginate(
+          $this->recipeService->
+              queryAllByRating(),
+            $request->query->getInt('page', 1),
+            RecipeRepository::PAGINATOR_ITEMS_PER_PAGE
+        );
+
+        return $this->render(
+            'recipe/index.html.twig',
+            ['pagination' => $pagination]
+        );
+    }
+
 
     /**
      * Create action.

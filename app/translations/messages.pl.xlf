@@ -283,6 +283,11 @@
                                          <target>Błąd formularza!</target>
                                    </trans-unit>
 
+                                   <trans-unit id="rating_sort">
+                                        <source>rating_sort</source>
+                                         <target>Wyświetlaj najpierw przepisy najwyżej ocenione</target>
+                                   </trans-unit>
+
 
 
 

@@ -43,6 +43,7 @@ class Recipe
     /**
      * Rating.
      * @var float
+     * @Assert\Type(type="float")
      * @ORM\Column(type="float", nullable=true)
      */
     public $rating;

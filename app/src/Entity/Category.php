@@ -58,6 +58,7 @@ class Category
      */
     public $recipes;
 
+
     public function __construct()
     {
         $this->recipes = new ArrayCollection();

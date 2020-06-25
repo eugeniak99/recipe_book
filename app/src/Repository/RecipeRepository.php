@@ -84,7 +84,7 @@ class RecipeRepository extends ServiceEntityRepository
                 'partial tags.{id, tag_name}')
         ->join('recipe.category', 'category')
             ->leftJoin('recipe.tags', 'tags')
-        ->orderBy('recipe.rating', 'DESC');
+        ->orderBy('recipe.creation_date', 'DESC');
         $queryBuilder = $this->applyFiltersToList($queryBuilder, $filters);
 
         return $queryBuilder;
@@ -101,6 +101,18 @@ class RecipeRepository extends ServiceEntityRepository
     {
         return $queryBuilder ?? $this->createQueryBuilder('recipe');
     }
+
+    /**
+     * Query all records order by date.
+     *
+     * @return \Doctrine\ORM\QueryBuilder Query builder
+     */
+    public function queryAllByRating(): QueryBuilder
+    {
+        return $this->getOrCreateQueryBuilder()
+            ->orderBy('recipe.rating', 'DESC');
+    }
+
 
     /**
      * Save record.

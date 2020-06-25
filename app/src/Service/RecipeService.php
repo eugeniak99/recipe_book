@@ -139,4 +139,12 @@ class RecipeService
 
         return $resultFilters;
     }
+
+    /**
+     * @return \Doctrine\ORM\QueryBuilder
+     */
+    public function queryAllByRating()
+    {
+        return $this->recipeRepository->queryAllByRating();
+    }
 }
