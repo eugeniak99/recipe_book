@@ -4,8 +4,6 @@
  */
 namespace App\Controller;
 
-
-
 use App\Entity\Comment;
 use App\Form\CommentType;
 use App\Repository\CommentRepository;
@@ -44,7 +42,7 @@ class CommentController extends AbstractController
     /**
      * Index action.
      *
-     * @param \Symfony\Component\HttpFoundation\Request $request           HTTP request
+     * @param \Symfony\Component\HttpFoundation\Request $request HTTP request
      *
      *
      * @return \Symfony\Component\HttpFoundation\Response HTTP response
@@ -83,7 +81,6 @@ class CommentController extends AbstractController
      */
     public function show(Comment $comment): Response
     {
-
         return $this->render(
             'comment/show.html.twig',
             ['comment' => $comment,
@@ -94,8 +91,8 @@ class CommentController extends AbstractController
     /**
      * Edit action.
      *
-     * @param \Symfony\Component\HttpFoundation\Request $request           HTTP request
-     * @param \App\Entity\Comment                       $comment           Comment entity
+     * @param \Symfony\Component\HttpFoundation\Request $request HTTP request
+     * @param \App\Entity\Comment                       $comment Comment entity
      *
      *
      * @return \Symfony\Component\HttpFoundation\Response HTTP response
@@ -120,7 +117,7 @@ class CommentController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-           $this->commentService->save($comment);
+            $this->commentService->save($comment);
 
             $this->addFlash('success', 'Edycja się powiodła!');
 
@@ -139,8 +136,8 @@ class CommentController extends AbstractController
     /**
      * Delete action.
      *
-     * @param \Symfony\Component\HttpFoundation\Request $request           HTTP request
-     * @param \App\Entity\Comment                       $comment           Comment entity
+     * @param \Symfony\Component\HttpFoundation\Request $request HTTP request
+     * @param \App\Entity\Comment                       $comment Comment entity
      *
      *
      * @return \Symfony\Component\HttpFoundation\Response HTTP response

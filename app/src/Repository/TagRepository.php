@@ -21,7 +21,7 @@ use Doctrine\ORM\QueryBuilder;
 
 /**
  * Class TagRepository
- * @package App\Repository
+ *
  */
 class TagRepository extends ServiceEntityRepository
 {
@@ -57,17 +57,7 @@ class TagRepository extends ServiceEntityRepository
             ->orderBy('tag.id', 'ASC');
     }
 
-    /**
-     * Get or create new query builder.
-     *
-     * @param \Doctrine\ORM\QueryBuilder|null $queryBuilder Query builder
-     *
-     * @return \Doctrine\ORM\QueryBuilder Query builder
-     */
-    private function getOrCreateQueryBuilder(QueryBuilder $queryBuilder = null): QueryBuilder
-    {
-        return $queryBuilder ?? $this->createQueryBuilder('tag');
-    }
+
     /**
      * Save record.
      *
@@ -93,5 +83,16 @@ class TagRepository extends ServiceEntityRepository
     {
         $this->_em->remove($tag);
         $this->_em->flush($tag);
+    }
+    /**
+     * Get or create new query builder.
+     *
+     * @param \Doctrine\ORM\QueryBuilder|null $queryBuilder Query builder
+     *
+     * @return \Doctrine\ORM\QueryBuilder Query builder
+     */
+    private function getOrCreateQueryBuilder(QueryBuilder $queryBuilder = null): QueryBuilder
+    {
+        return $queryBuilder ?? $this->createQueryBuilder('tag');
     }
 }

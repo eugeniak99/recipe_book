@@ -42,9 +42,9 @@ class TagController extends AbstractController
     /**
      * Index action.
      *
-     * @param \Symfony\Component\HttpFoundation\Request $request       HTTP request
+     * @param \Symfony\Component\HttpFoundation\Request $request   HTTP request
      *
-     * @param \Knp\Component\Pager\PaginatorInterface   $paginator     Paginator
+     * @param \Knp\Component\Pager\PaginatorInterface   $paginator Paginator
      *
      * @return \Symfony\Component\HttpFoundation\Response HTTP response
      *
@@ -89,7 +89,7 @@ class TagController extends AbstractController
     /**
      * Create action.
      *
-     * @param \Symfony\Component\HttpFoundation\Request $request       HTTP request
+     * @param \Symfony\Component\HttpFoundation\Request $request HTTP request
      *
      *
      * @return \Symfony\Component\HttpFoundation\Response HTTP response
@@ -111,7 +111,7 @@ class TagController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-           $this->tagService->save($tag);
+            $this->tagService->save($tag);
             $this->addFlash('success', 'Tworzenie tagu się powiodło');
 
             return $this->redirectToRoute('tag_index');
@@ -126,8 +126,8 @@ class TagController extends AbstractController
     /**
      * Edit action.
      *
-     * @param \Symfony\Component\HttpFoundation\Request $request            HTTP request
-     * @param \App\Entity\Tag                     $tag        Tag entity
+     * @param \Symfony\Component\HttpFoundation\Request $request HTTP request
+     * @param \App\Entity\Tag                           $tag     Tag entity
      *
      *
      * @return \Symfony\Component\HttpFoundation\Response HTTP response
@@ -148,10 +148,8 @@ class TagController extends AbstractController
         $form = $this->createForm(TagType::class, $tag, ['method' => 'PUT']);
         $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid())
-        {
-
-           $this->tagService->save($tag);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $this->tagService->save($tag);
 
             $this->addFlash('success', 'Edycja się powiodła!');
 
@@ -169,8 +167,8 @@ class TagController extends AbstractController
     /**
      * Delete action.
      *
-     * @param \Symfony\Component\HttpFoundation\Request $request            HTTP request
-     * @param \App\Entity\Tag                      $tag          Tag entity
+     * @param \Symfony\Component\HttpFoundation\Request $request HTTP request
+     * @param \App\Entity\Tag                           $tag     Tag entity
      *
      *
      * @return \Symfony\Component\HttpFoundation\Response HTTP response

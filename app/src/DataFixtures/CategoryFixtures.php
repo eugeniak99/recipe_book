@@ -8,7 +8,6 @@ namespace App\DataFixtures;
 use App\Entity\Category;
 use Doctrine\Persistence\ObjectManager;
 
-
 /**
  * Class CategoryFixtures
  *
@@ -31,5 +30,4 @@ class CategoryFixtures extends AbstractBaseFixtures
 
         $manager->flush();
     }
-
 }

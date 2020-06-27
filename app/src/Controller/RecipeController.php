@@ -111,12 +111,13 @@ class RecipeController extends AbstractController
             //_show,  ['id' => $id]);
         }
 
-        return $this->render('recipe/show.html.twig',
-                [
+        return $this->render(
+            'recipe/show.html.twig',
+            [
                     'recipe' => $recipe,
                     'form' => $form->createView(),
                 ]
-            );
+        );
     }
 
     /**
@@ -130,6 +131,7 @@ class RecipeController extends AbstractController
      *     "/",
      *     name="recipe_index",
      * )
+     *
      */
     public function index(Request $request): Response
     {
@@ -145,14 +147,14 @@ class RecipeController extends AbstractController
         );
     }
 
-// ...
+    // ...
 
     /**
      * IndexByRating action.
      *
-     * @param \Symfony\Component\HttpFoundation\Request $request HTTP request
+     * @param \Symfony\Component\HttpFoundation\Request $request   HTTP request
      *
-     * @param \Knp\Component\Pager\PaginatorInterface $paginator Paginator
+     * @param \Knp\Component\Pager\PaginatorInterface   $paginator Paginator
      *
      * @return \Symfony\Component\HttpFoundation\Response HTTP response
      *
@@ -161,10 +163,10 @@ class RecipeController extends AbstractController
      *     name="recipe_index_rating",
      * )
      */
-    public function index_rating(Request $request,PaginatorInterface $paginator): Response
+    public function index_rating(Request $request, PaginatorInterface $paginator): Response
     {
         $pagination = $paginator->paginate(
-          $this->recipeService->
+            $this->recipeService->
               queryAllByRating(),
             $request->query->getInt('page', 1),
             RecipeRepository::PAGINATOR_ITEMS_PER_PAGE

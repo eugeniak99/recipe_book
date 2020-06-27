@@ -24,17 +24,20 @@ class RegistrationFormType extends AbstractType
     /**
      * BuildForm function;.
      * @param FormBuilderInterface $builder
-     * @param array $options
+     * @param array                $options
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('email', EmailType::class,
-        ['label' => 'email'])
+            ->add(
+                'email',
+                EmailType::class,
+                ['label' => 'email']
+            )
 
             ->add('agreeTerms', CheckboxType::class, [
                 'mapped' => false,
-'label'=>'agree_terms',
+                'label' => 'agree_terms',
                 'constraints' => [
                     new IsTrue([
                         'message' => 'You should agree to our terms.',
@@ -53,17 +56,20 @@ class RegistrationFormType extends AbstractType
                     ]),
                     new Length([
                         'min' => 6,
-                        'minMessage' => 'Your password should be at least {{ limit }} characters',
+                        'minMessage' => 'Twoje hasło musi zawierać co najmniej {{ limit }} znaków',
                         // max length allowed by Symfony for security reasons
                         'max' => 4096,
                     ]),
                 ],
             ])
 
-        ->add('userData', UserDataType::class,
-        [
-        'label' => false,
-        ]);
+        ->add(
+            'userData',
+            UserDataType::class,
+            [
+            'label' => false,
+            ]
+        );
     }
 
     /**

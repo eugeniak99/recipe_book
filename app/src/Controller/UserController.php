@@ -34,19 +34,18 @@ class UserController extends AbstractController
     /**
      * RecipeController constructor.
      *
-     * @param \App\Service\UserService  $userService  User service
+     * @param \App\Service\UserService $userService User service
      *
      *
      */
     public function __construct(UserService $userService)
     {
         $this->userService = $userService;
-
     }
     /**
      * Index action.
      *
-     * @param \Symfony\Component\HttpFoundation\Request $request        HTTP request
+     * @param \Symfony\Component\HttpFoundation\Request $request HTTP request
      *
      *
      * @return \Symfony\Component\HttpFoundation\Response HTTP response
@@ -72,10 +71,10 @@ class UserController extends AbstractController
     /**
      * Edit action.
      *
-     * @param \Symfony\Component\HttpFoundation\Request $request        HTTP request
+     * @param \Symfony\Component\HttpFoundation\Request $request         HTTP request
      * @param \App\Entity\User                          $dynia           User entity
      *
-     * @param  UserPasswordEncoderInterface   $passwordEncoder
+     * @param  UserPasswordEncoderInterface              $passwordEncoder
      *
      * @return \Symfony\Component\HttpFoundation\Response HTTP response
      *
@@ -97,12 +96,12 @@ class UserController extends AbstractController
 
 
         if ($form->isSubmitted() && $form->isValid()) {
-
-
             $dynia->setPassword(
                 $passwordEncoder->encodePassword(
                     $dynia,
-                    $form->get('password')->getData()));
+                    $form->get('password')->getData()
+                )
+            );
             $this->userService->save($dynia);
 
             $this->addFlash('success', 'Zmiana hasła się powiodła');

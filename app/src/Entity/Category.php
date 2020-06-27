@@ -2,15 +2,12 @@
 /**
  * Category entity.
  */
-namespace App\Entity;
 
-use DateTimeInterface;
+namespace App\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
-use Gedmo\Mapping\Annotation as Gedmo;
-use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
@@ -23,6 +20,7 @@ class Category
 {
     /**
      * Primary key.
+     *
      * @var int
      *
      * @ORM\Id()
@@ -33,6 +31,7 @@ class Category
 
     /**
      * Category name.
+     *
      * @var string
      *
      * @ORM\Column(type="string", length=45)
@@ -49,16 +48,16 @@ class Category
     /**
      * Recipes.
      *
-     * @var \Doctrine\Common\Collections\ArrayCollection|App\Entity\Recipe[] $recipes Recipe
+     * @var \Doctrine\Common\Collections\ArrayCollection|App\Entity\Recipe[] Recipe
      *
      * @ORM\OneToMany(targetEntity=Recipe::class, mappedBy="category",
      *     fetch="EXTRA_LAZY"),
-     *
-     *
      */
     public $recipes;
 
-
+    /**
+     * Category constructor.
+     */
     public function __construct()
     {
         $this->recipes = new ArrayCollection();
@@ -89,12 +88,13 @@ class Category
      *
      * @param string $category_name Category Name
      *
+     * @return $this
      */
     public function setCategoryName(string $category_name): self
     {
         $this->category_name = $category_name;
 
-      return $this;
+        return $this;
     }
 
     /**
@@ -110,7 +110,6 @@ class Category
     /**
      * Add a Recipe.
      *
-     * @param Recipe $recipe
      * @return $this
      */
     public function addRecipe(Recipe $recipe): self
@@ -126,7 +125,6 @@ class Category
     /**
      * Remover for Recipe.
      *
-     * @param Recipe $recipe
      * @return $this
      */
     public function removeRecipe(Recipe $recipe): self
@@ -141,6 +139,4 @@ class Category
 
         return $this;
     }
-
-
 }

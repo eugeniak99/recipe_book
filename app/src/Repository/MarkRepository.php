@@ -19,7 +19,7 @@ use Doctrine\Persistence\ManagerRegistry;
 
 /**
  * Class MarkRepository
- * @package App\Repository
+ *
  */
 class MarkRepository extends ServiceEntityRepository
 {
@@ -50,24 +50,21 @@ class MarkRepository extends ServiceEntityRepository
      * Method Calculate Average.
      *
      * @param Recipe $recipe
+     *
      * @return float
+     *
      * @throws NonUniqueResultException
      */
-
-
     public function calculateAvg(Recipe $recipe): float
     {
-
-        $result=$this->createQueryBuilder('rating')
+        $result = $this->createQueryBuilder('rating')
                 ->select('AVG(rating.mark) AS ranking')
                 ->where('rating.recipe = :recipe')
                 ->setParameter('recipe', $recipe)
                 ->getQuery()
                 ->getOneOrNullResult();
 
-return $result['ranking']??0;
-
-
+        return $result['ranking'] ?? 0;
     }
 
 

@@ -2,15 +2,21 @@
 /**
  * UserData entity.
  */
+
 namespace App\Entity;
 
 use App\Repository\UserDataRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=UserDataRepository::class)
  * @ORM\Table(name="users_data")
+ *
+ * @UniqueEntity("nickname", errorPath="nickname",
+ *     message="Ten nick już jest używany.")
+ *
  */
 class UserData
 {
@@ -36,7 +42,8 @@ class UserData
      *     min="3",
      *     max="45",
      *     )
-     * @ORM\Column(type="string", length=45)
+     *
+     * @ORM\Column(type="string", length=45, unique=true)
      */
     private $nickname;
 
@@ -90,6 +97,7 @@ class UserData
 
     /**
      * Getter for nickname.
+     * @return string|null
      */
     public function getNickname(): ?string
     {
@@ -110,6 +118,7 @@ class UserData
 
     /**
      * Getter for nickname.
+     * @return string|null
      */
     public function getName(): ?string
     {
@@ -130,6 +139,7 @@ class UserData
 
     /**
      * Getter for surname.
+     * @return string|null
      */
     public function getSurname(): ?string
     {
@@ -150,6 +160,7 @@ class UserData
 
     /**
      * Getter for identity.
+     * @return User|null
      */
     public function getIdentity(): ?User
     {
@@ -167,8 +178,14 @@ class UserData
 
         return $this;
     }
-    public function __toString() {
+
+    /**
+     * To String.
+     *
+     * @return string
+     */
+    public function __toString()
+    {
         return $this->nickname;
     }
-
 }

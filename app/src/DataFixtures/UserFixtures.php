@@ -8,13 +8,14 @@ namespace App\DataFixtures;
 use App\Entity\User;
 use Doctrine\Persistence\ObjectManager;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
+use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 
 /**
  * Class UserFixtures.
  */
 class UserFixtures extends AbstractBaseFixtures
 {
-    public const USER_REFERENCE = 'users';
+
     /**
      * Password encoder.
      *
@@ -41,7 +42,7 @@ class UserFixtures extends AbstractBaseFixtures
     {
         $this->createMany(10, 'users', function ($i) {
             $user = new User();
-            $user->setUserData($this->getRandomReference('users_data'));
+            $user->setUserData($this->getRandomReference('user_data'));
             $user->setEmail(sprintf('user%d@example.com', $i));
             $user->setRoles([User::ROLE_USER]);
             $user->setPassword(
@@ -51,16 +52,15 @@ class UserFixtures extends AbstractBaseFixtures
                 )
             );
 
-            $this->addReference(self::USER_REFERENCE, $user);
+
 
             return $user;
-
         });
 
 
         $this->createMany(3, 'admins', function ($i) {
             $user = new User();
-            $user->setUserData($this->getRandomReference('users_data'));
+            $user->setUserData($this->getRandomReference('user_data_admin'));
             $user->setEmail(sprintf('admin%d@example.com', $i));
             $user->setRoles([User::ROLE_USER, User::ROLE_ADMIN]);
             $user->setPassword(
@@ -74,9 +74,13 @@ class UserFixtures extends AbstractBaseFixtures
         });
 
         $manager->flush();
-
     }
 
+    /**
+     * Get Dependencies.
+     *
+     * @return array|string[]
+     */
     public function getDependencies(): array
     {
         return [UserDataFixtures::class];

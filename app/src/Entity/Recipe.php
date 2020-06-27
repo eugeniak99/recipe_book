@@ -43,7 +43,9 @@ class Recipe
     /**
      * Rating.
      * @var float
+     *
      * @Assert\Type(type="float")
+     *
      * @ORM\Column(type="float", nullable=true)
      */
     public $rating;
@@ -147,6 +149,8 @@ class Recipe
      * Setter for Creation Date.
      *
      * @param \DateTimeInterface $creation_date Creation Date
+     *
+     * @return $this
      */
     public function setCreationDate(\DateTimeInterface $creation_date): self
     {
@@ -169,12 +173,11 @@ class Recipe
      * Setter for Rating.
      *
      * @param int $rating
-     *                      return $this
+     *
+     * @return $this
      */
     public function setRating(int $rating): self
     {
-
-
         $this->rating = $rating;
 
         return $this;
@@ -182,6 +185,7 @@ class Recipe
 
     /**
      * Getter for Recipe Name.
+     * @return string|null
      */
     public function getRecipeName(): ?string
     {
@@ -190,6 +194,7 @@ class Recipe
 
     /**
      * Setter for Recipe Name.
+     * @param string $recipe_name
      *
      * @return $this
      */
@@ -226,6 +231,7 @@ class Recipe
 
     /**
      * Getter for Category.
+     * @return Category|null
      */
     public function getCategory(): ?Category
     {
@@ -234,6 +240,7 @@ class Recipe
 
     /**
      * Setter for Category.
+     * @param Category|null $category
      *
      * @return $this
      */
@@ -254,6 +261,13 @@ class Recipe
         return $this->tags;
     }
 
+    /**
+     * Add Tag.
+     *
+     * @param Tag $tag
+     *
+     * @return $this
+     */
     public function addTag(Tag $tag): self
     {
         if (!$this->tags->contains($tag)) {
@@ -267,6 +281,7 @@ class Recipe
      * Remove tag.
      *
      * @param Tag $tag
+     *
      * @return $this
      */
     public function removeTag(Tag $tag): self
@@ -292,6 +307,7 @@ class Recipe
      * Add a comment.
      *
      * @param Comment $comment
+     *
      * @return $this
      */
     public function addComment(Comment $comment): self
@@ -308,6 +324,7 @@ class Recipe
      * Remove a comment.
      *
      * @param Comment $comment
+     *
      * @return $this
      */
     public function removeComment(Comment $comment): self
@@ -336,6 +353,7 @@ class Recipe
     /**
      * Add a mark.
      * @param Mark $mark
+     *
      * @return $this
      */
     public function addMark(Mark $mark): self
@@ -352,6 +370,7 @@ class Recipe
      * Remove a mark.
      *
      * @param Mark $mark
+     *
      * @return $this
      */
     public function removeMark(Mark $mark): self

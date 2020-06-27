@@ -13,7 +13,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 
 /**
  * Class UserType
- * @package App\Form
+ *
  */
 class UserType extends AbstractType
 {
@@ -21,17 +21,19 @@ class UserType extends AbstractType
      * Function Build Form.
      *
      * @param FormBuilderInterface $builder
-     * @param array $options
+     * @param array                $options
      */
-     public function buildForm(FormBuilderInterface $builder, array $options)
+    public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('email',
+        $builder->add(
+            'email',
             EmailType::class,
             [
                 'label' => 'Email',
                 'required' => true,
                 'attr' => ['max_length' => 64],
-            ]);
+            ]
+        );
         $builder->add('password', PasswordType::class, [
                 'label' => 'Password',
                 'required' => true,

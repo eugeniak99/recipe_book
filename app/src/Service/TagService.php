@@ -2,12 +2,14 @@
 /**
  * Tag Service.
  */
+
 namespace App\Service;
 
-use App\Repository\TagRepository;
-use Knp\Component\Pager\PaginatorInterface;
-use \Knp\Component\Pager\Pagination\PaginationInterface;
 use App\Entity\Tag;
+use App\Repository\TagRepository;
+use Knp\Component\Pager\Pagination\PaginationInterface;
+use Knp\Component\Pager\PaginatorInterface;
+
 /**
  * Class TagService.
  */
@@ -29,17 +31,19 @@ class TagService
      * @var \Knp\Component\Pager\PaginatorInterface
      */
     private $paginator;
+
     /**
      * CategoryService constructor.
      *
-     * @param \App\Repository\CategoryRepository      $recipeRepository Category repository
-     * @param \Knp\Component\Pager\PaginatorInterface $paginator          Paginator
+     * @param \App\Repository\TagRepository           $tagRepository Tag repository
+     * @param \Knp\Component\Pager\PaginatorInterface $paginator     Paginator
      */
     public function __construct(TagRepository $tagRepository, PaginatorInterface $paginator)
     {
         $this->tagRepository = $tagRepository;
         $this->paginator = $paginator;
     }
+
     /**
      * Create paginated list.
      *
@@ -49,13 +53,13 @@ class TagService
      */
     public function createPaginatedList(int $page): PaginationInterface
     {
-
         return $this->paginator->paginate(
             $this->tagRepository->queryAll(),
             $page,
             TagRepository::PAGINATOR_ITEMS_PER_PAGE
         );
     }
+
     /**
      * Save tag.
      *
@@ -81,6 +85,7 @@ class TagService
     {
         $this->tagRepository->delete($tag);
     }
+
     /**
      * Find tag by Id.
      *

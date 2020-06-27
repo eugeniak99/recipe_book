@@ -91,7 +91,7 @@
 
                                    <trans-unit id="recipe_info">
                                         <source>recipe_info</source>
-                                         <target>informacje o przepisie</target>
+                                         <target>Informacje o przepisie</target>
                                    </trans-unit>
 
                                    <trans-unit id="recipe_edit">
@@ -287,6 +287,17 @@
                                         <source>rating_sort</source>
                                          <target>Wyświetlaj najpierw przepisy najwyżej ocenione</target>
                                    </trans-unit>
+
+                                   <trans-unit id="label_firstname">
+                                        <source>label_firstname</source>
+                                         <target>Imię</target>
+                                   </trans-unit>
+
+            <trans-unit id="login">
+                <source>login</source>
+                <target>Zaloguj się</target>
+            </trans-unit>
+
 
 
 

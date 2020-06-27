@@ -47,20 +47,18 @@ class RecipeService
      */
     private $tagService;
 
-
     /**
      * CategoryService constructor.
      *
      * @param \App\Repository\CategoryRepository      $recipeRepository Recipe repository
      * @param \Knp\Component\Pager\PaginatorInterface $paginator        Paginator
      * @param \App\Service\CategoryService            $categoryService  Category service
-     * @param \App\Service\TagService                 $tagService Tag Service
-     *
+     * @param \App\Service\TagService                 $tagService       Tag Service
      */
     public function __construct(RecipeRepository $recipeRepository, PaginatorInterface $paginator, CategoryService $categoryService, TagService $tagService)
     {
         $this->recipeRepository = $recipeRepository;
-        $this->tagService=$tagService;
+        $this->tagService = $tagService;
         $this->categoryService = $categoryService;
         $this->paginator = $paginator;
     }
@@ -111,6 +109,14 @@ class RecipeService
     }
 
     /**
+     * @return \Doctrine\ORM\QueryBuilder
+     */
+    public function queryAllByRating()
+    {
+        return $this->recipeRepository->queryAllByRating();
+    }
+
+    /**
      * Prepare filters for the tasks list.
      *
      * @param array $filters Raw filters from request
@@ -136,15 +142,6 @@ class RecipeService
             }
         }
 
-
         return $resultFilters;
-    }
-
-    /**
-     * @return \Doctrine\ORM\QueryBuilder
-     */
-    public function queryAllByRating()
-    {
-        return $this->recipeRepository->queryAllByRating();
     }
 }

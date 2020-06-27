@@ -6,7 +6,7 @@
 
 {% block body %}
 
-    <h1>{{ 'recipe_info'|trans({'%id%': recipe.id|default('')}) }}</h1>
+    <h1 xmlns:color="http://www.w3.org/1999/xhtml">{{ 'recipe_info'|trans({'%id%': recipe.id|default('')}) }}</h1>
     {% if recipe is defined and recipe|length %}
         <dl class="dl-horizontal">
             <dt>{{ 'label_id'|trans }}</dt>
@@ -27,7 +27,7 @@
                 <a href="{{ url('tag_show',{id: tag.id}) }}">{{ tag.tag_name }}<br>
                 </a>
             {% endfor %}
-
+            {% if is_granted ('IS_AUTHENTICATED_REMEMBERED') %}
             <dt>{{ 'label_add_mark_comment'|trans }}</dt>
             <dd> {{ form_start(form, { method: 'POST', action: url('recipe_show', {id: recipe.id}) }) }}
                 {{ form_widget(form) }}
@@ -35,14 +35,18 @@
                 <div class="form-group row float-sm-right">
                     <input type="submit" name="submit_comment" value="{{ 'submit'|trans }}" class="btn btn-primary" />
                 </div>
+                {{ form_end(form) }}
+
+                {% else %}
+                    <br>
+                        <a style="border-style: dashed; font-style: oblique; color: green" href="{{ url('app_login') }}" title="{{ 'login'|trans }}">
+                            {{ 'login'|trans }}, {{ 'żeby ocenić przepis i dodać komentarz' }}
+                        </a>
 
 
-            </dd>
+                {% endif %}
 
-
-
-
-
+                <br>
             <dt>{{ 'label_recipe_comments'|trans }}</dt>
 
             <dd>

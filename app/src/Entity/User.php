@@ -2,19 +2,18 @@
 /**
  * Class User.
  */
+
 namespace App\Entity;
 
-use App\Repository\UserRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\UserInterface;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
- *
  * Class User.
  *
  * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
@@ -32,7 +31,6 @@ use Symfony\Component\Validator\Constraints as Assert;
  */
 class User implements UserInterface
 {
-
     /**
      * Role user.
      *
@@ -82,8 +80,8 @@ class User implements UserInterface
 
     /**
      * @var string The hashed password
-     * @ORM\Column(type="string")
      *
+     * @ORM\Column(type="string")
      */
     private $password;
 
@@ -98,12 +96,13 @@ class User implements UserInterface
     private $marks;
 
     /**
-     *
      * @ORM\OneToOne(targetEntity=UserData::class, mappedBy="identity", cascade={"persist", "remove"})
-     *
      */
     private $userData;
 
+    /**
+     * User constructor.
+     */
     public function __construct()
     {
         $this->comments = new ArrayCollection();
@@ -122,8 +121,6 @@ class User implements UserInterface
 
     /**
      * Getter for email.
-     *
-     * @return string|null
      */
     public function getEmail(): ?string
     {
@@ -134,6 +131,7 @@ class User implements UserInterface
      * Setter for email.
      *
      * @param string $email E-mail
+     *
      * @return $this
      */
     public function setEmail(string $email): self
@@ -200,7 +198,8 @@ class User implements UserInterface
     /**
      * Setter for the Password.
      *
-     * @param string $password Password.
+     * @param string $password password
+     *
      * @return $this
      */
     public function setPassword(string $password): self
@@ -229,6 +228,7 @@ class User implements UserInterface
 
     /**
      * Getter for comments.
+     *
      * @return Collection|Comment[]
      */
     public function getComments(): Collection
@@ -239,7 +239,6 @@ class User implements UserInterface
     /**
      * Add a comment.
      *
-     * @param Comment $comment
      * @return $this
      */
     public function addComment(Comment $comment): self
@@ -255,7 +254,6 @@ class User implements UserInterface
     /**
      * Remove comment.
      *
-     * @param Comment $comment
      * @return $this
      */
     public function removeComment(Comment $comment): self
@@ -270,9 +268,15 @@ class User implements UserInterface
 
         return $this;
     }
-    public function __toString() {
-        return $this->email;
 
+    /**
+     * To string.
+     *
+     * @return string
+     */
+    public function __toString()
+    {
+        return $this->email;
     }
 
     /**
@@ -286,7 +290,6 @@ class User implements UserInterface
     /**
      * Remove mark.
      *
-     * @param Mark $mark
      * @return $this
      */
     public function addMark(Mark $mark): self
@@ -302,7 +305,6 @@ class User implements UserInterface
     /**
      * Remove mark.
      *
-     * @param Mark $mark
      * @return $this
      */
     public function removeMark(Mark $mark): self
@@ -320,8 +322,6 @@ class User implements UserInterface
 
     /**
      * Getter for UserData.
-     *
-     * @return UserData|null
      */
     public function getUserData(): ?UserData
     {
@@ -331,7 +331,6 @@ class User implements UserInterface
     /**
      * Setter for UserData.
      *
-     * @param UserData|null $userData
      * @return $this
      */
     public function setUserData(?UserData $userData): self
@@ -346,5 +345,4 @@ class User implements UserInterface
 
         return $this;
     }
-
 }

@@ -6,6 +6,7 @@
 namespace App\Form;
 
 use App\Entity\UserData;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -36,13 +37,14 @@ class UserDataType extends AbstractType
                 'label' => 'label_nickname',
                 'required' => true,
                 'attr' => ['max_length' => 45],
+
             ]
         );
         $builder->add(
             'name',
             TextType::class,
             [
-                'label' => 'label_name',
+                'label' => 'label_firstname',
 
                 'required' => true,
                 'attr' => ['max_length' => 45],
@@ -59,6 +61,7 @@ class UserDataType extends AbstractType
             ]
         );
     }
+
     /**
      * Configures the options for this type.
      *
@@ -81,5 +84,4 @@ class UserDataType extends AbstractType
     {
         return 'userData';
     }
-
 }

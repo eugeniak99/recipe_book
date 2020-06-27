@@ -6,14 +6,13 @@
 namespace App\DataFixtures;
 
 use App\Entity\UserData;
-use Doctrine\Persistence\ObjectManager;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
+use Doctrine\Persistence\ObjectManager;
 
 /**
  * Class UserDataFixtures.
  */
-
-class UserDataFixtures extends AbstractBaseFixtures
+class UserDataFixtures extends AbstractBaseFixtures implements DependentFixtureInterface
 {
     /**
      * Load data.
@@ -22,20 +21,29 @@ class UserDataFixtures extends AbstractBaseFixtures
      */
     public function loadData(ObjectManager $manager): void
     {
-        $this->createMany(50, 'users_data', function ($i) {
-            $user_data = new UserData();
-            $user_data->setName($this->faker->name);
-            $user_data->setSurname($this->faker->lastName);
-            $user_data->setNickname($this->faker->word);
+        $this->createMany(10, 'user_data', function ($i) {
+            $userData = new UserData();
+            $userData->setName($this->faker->firstName);
+            $userData->setSurname($this->faker->lastName);
+            $userData->setNickname($this->faker->userName);
+            $userData->setIdentity($this->getRandomReference('users'));
 
-            $user_data->setIdentity($this->getReference('users'.$i));
+            return $userData;
+        });
 
+        $this->createMany(3, 'user_data_admin', function ($i) {
+            $userData = new UserData();
+            $userData->setName($this->faker->firstName);
+            $userData->setSurname($this->faker->lastName);
+            $userData->setNickname($this->faker->userName);
+            $userData->setIdentity($this->getRandomReference('admins'));
 
-            return $user_data;
+            return $userData;
         });
 
         $manager->flush();
     }
+
     /**
      * This method must return an array of fixtures classes
      * on which the implementing class depends on.

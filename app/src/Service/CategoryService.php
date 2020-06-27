@@ -5,14 +5,13 @@
 
 namespace App\Service;
 
-use App\Repository\CategoryRepository;
-use Knp\Component\Pager\PaginatorInterface;
-use \Knp\Component\Pager\Pagination\PaginationInterface;
 use App\Entity\Category;
+use App\Repository\CategoryRepository;
+use Knp\Component\Pager\Pagination\PaginationInterface;
+use Knp\Component\Pager\PaginatorInterface;
 
 /**
- * Class CategoryService
- * @package App\Service
+ * Class CategoryService.
  */
 class CategoryService
 {
@@ -41,6 +40,7 @@ class CategoryService
         $this->categoryRepository = $categoryRepository;
         $this->paginator = $paginator;
     }
+
     /**
      * Create paginated list.
      *
@@ -50,13 +50,13 @@ class CategoryService
      */
     public function createPaginatedList(int $page): PaginationInterface
     {
-
         return $this->paginator->paginate(
             $this->categoryRepository->queryAll(),
             $page,
             CategoryRepository::PAGINATOR_ITEMS_PER_PAGE
         );
     }
+
     /**
      * Save category.
      *
@@ -82,6 +82,7 @@ class CategoryService
     {
         $this->categoryRepository->delete($category);
     }
+
     /**
      * Find category by Id.
      *

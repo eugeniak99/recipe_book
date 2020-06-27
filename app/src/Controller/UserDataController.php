@@ -14,6 +14,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
+
 /**
  *  Class UserDataController.
  *
@@ -30,18 +31,18 @@ class UserDataController extends AbstractController
     /**
      * RecipeController constructor.
      *
-     * @param \App\Service\UserDataService  $userDataService  UserData service
+     * @param \App\Service\UserDataService $userDataService UserData service
      *
      */
     public function __construct(UserDataService $userDataService)
     {
-        $this->userDataService=$userDataService;
+        $this->userDataService = $userDataService;
     }
     /**
      * Edit action.
      *
-     * @param \Symfony\Component\HttpFoundation\Request $request           HTTP request
-     * @param \App\Entity\UserData                      $userData           UserData entity
+     * @param \Symfony\Component\HttpFoundation\Request $request  HTTP request
+     * @param \App\Entity\UserData                      $userData UserData entity
      *
      *
      * @return \Symfony\Component\HttpFoundation\Response HTTP response

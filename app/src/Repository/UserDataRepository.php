@@ -34,6 +34,7 @@ class UserDataRepository extends ServiceEntityRepository
      * Save method.
      *
      * @param UserData $userData
+     *
      * @throws \Doctrine\ORM\ORMException
      * @throws \Doctrine\ORM\OptimisticLockException
      */

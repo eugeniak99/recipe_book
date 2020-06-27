@@ -64,6 +64,7 @@ class Mark
      * Setter for Mark.
      *
      * @param int $mark
+     *
      * @return $this
      */
     public function setMark(int $mark): self
@@ -87,6 +88,7 @@ class Mark
      * Setter for Recipe.
      *
      * @param Recipe|null $recipe
+     *
      * @return $this
      */
     public function setRecipe(?Recipe $recipe): self
@@ -110,6 +112,7 @@ class Mark
      * Setter for USer.
      *
      * @param User|null $user
+     *
      * @return $this
      */
     public function setUser(?User $user): self

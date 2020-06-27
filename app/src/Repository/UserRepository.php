@@ -48,7 +48,8 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
     /**
      * Used to upgrade (rehash) the user's password automatically over time.
      * @param UserInterface $user
-     * @param string $newEncodedPassword
+     * @param string        $newEncodedPassword
+     *
      * @throws \Doctrine\ORM\ORMException
      * @throws \Doctrine\ORM\OptimisticLockException
      */
@@ -74,17 +75,7 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
             ->orderBy('user.email', 'DESC');
     }
 
-    /**
-     * Get or create new query builder.
-     *
-     * @param \Doctrine\ORM\QueryBuilder|null $queryBuilder Query builder
-     *
-     * @return \Doctrine\ORM\QueryBuilder Query builder
-     */
-    private function getOrCreateQueryBuilder(QueryBuilder $queryBuilder = null): QueryBuilder
-    {
-        return $queryBuilder ?? $this->createQueryBuilder('user');
-    }
+
 
     /**
      * Save record.
@@ -98,6 +89,17 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
     {
         $this->_em->persist($user);
         $this->_em->flush($user);
+    }
+    /**
+     * Get or create new query builder.
+     *
+     * @param \Doctrine\ORM\QueryBuilder|null $queryBuilder Query builder
+     *
+     * @return \Doctrine\ORM\QueryBuilder Query builder
+     */
+    private function getOrCreateQueryBuilder(QueryBuilder $queryBuilder = null): QueryBuilder
+    {
+        return $queryBuilder ?? $this->createQueryBuilder('user');
     }
 
     // /**

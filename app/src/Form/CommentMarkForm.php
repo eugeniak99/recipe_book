@@ -3,6 +3,7 @@
  * Form for Comments and Marks.
  */
 namespace App\Form;
+
 use App\Form\MarkType;
 use App\Form\CommentType;
 use Symfony\Component\Form\AbstractType;
@@ -10,7 +11,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 
 /**
  * Class CommentMarkForm
- * @package App\Form
+ *
  */
 class CommentMarkForm extends AbstractType
 {
@@ -30,15 +31,16 @@ class CommentMarkForm extends AbstractType
         $builder->add(
             'mark',
             MarkType::class,
-
-        [
-            'label'=>false
-        ]);
+            [
+            'label' => false,
+            ]
+        );
         $builder->add(
             'comment_content',
             CommentType::class,
-        [
-            'label'=>false
-        ]);
+            [
+            'label' => false,
+            ]
+        );
     }
 }

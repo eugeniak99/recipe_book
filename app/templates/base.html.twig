@@ -9,7 +9,7 @@
     {% endblock %}
 </head>
 <header>
-    {% if is_granted ('ROLE_USER') %}
+
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <a class="navbar-brand" href="#">Książka kucharska</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -22,7 +22,13 @@
             <li class="nav-item">
                 <a class="nav-link" href="{{url('recipe_index') }}">Przepisy</a>
             </li>
+            {% if not is_granted ('ROLE_USER') %}
+            <li class="nav-item">
+                <a class="nav-link" href="{{url('app_register') }}">Rejestracja</a>
+            </li>
+            {% endif %}
 
+            {% if is_granted ('ROLE_USER') %}
             <li class="nav-item">
                 <a class="nav-link" href="{{url('category_index') }}">Kategorie</a>
             </li>
@@ -55,9 +61,10 @@
         </form>
     </div>
 </nav>
-</header>
-<body>
+
+
 {% endif %}
+</header>
 {% if app.user and is_granted ('ROLE_USER') %}
     <div class="mb-3">
        Jesteś zalogowany jako {{ app.user.userData.nickname }}

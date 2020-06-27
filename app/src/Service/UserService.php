@@ -35,10 +35,10 @@ class UserService
 
     /**
      * UserService constructor.
-     * @param UserRepository $userRepository
+     * @param UserRepository     $userRepository
      * @param PaginatorInterface $paginator
-     * @param CategoryService $categoryService
-     * @param TagService $tagService
+     * @param CategoryService    $categoryService
+     * @param TagService         $tagService
      */
     public function __construct(UserRepository $userRepository, PaginatorInterface $paginator, CategoryService $categoryService, TagService $tagService)
     {
@@ -79,7 +79,7 @@ class UserService
     /**
      * Find One by.
      *
-     * @param array $criteria
+     * @param array      $criteria
      * @param array|null $orderBy
      *
      * @return User|null

@@ -10,7 +10,7 @@ use App\Repository\UserDataRepository;
 
 /**
  * Class UserDataService
- * @package App\Service
+ *
  */
 class UserDataService
 {
@@ -24,13 +24,12 @@ class UserDataService
     /**
      * UserDataService constructor.
      *
-     * @param \App\Repository\UserDataRepository      $userDataRepository UserData repository
+     * @param \App\Repository\UserDataRepository $userDataRepository UserData repository
      *
      */
     public function __construct(UserDataRepository $userDataRepository)
     {
         $this->userDataRepository = $userDataRepository;
-
     }
     /**
      * Save UserData.
@@ -38,6 +37,7 @@ class UserDataService
      * UserData $userData UserData entity
      *
      * @param UserData $userData
+     *
      * @throws \Doctrine\ORM\ORMException
      * @throws \Doctrine\ORM\OptimisticLockException
      */

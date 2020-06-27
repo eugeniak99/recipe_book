@@ -9,10 +9,9 @@ use App\Entity\Recipe;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Persistence\ObjectManager;
 
-
 /**
  * Class RecipeFixtures
- * @package App\DataFixtures
+ *
  */
 class RecipeFixtures extends AbstractBaseFixtures implements DependentFixtureInterface
 {
@@ -48,6 +47,4 @@ class RecipeFixtures extends AbstractBaseFixtures implements DependentFixtureInt
     {
         return [CategoryFixtures::class];
     }
-
-
 }

@@ -13,7 +13,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 /**
  * Class ChangePasswordType
- * @package App\Form
+ *
  */
 class ChangePasswordType extends AbstractType
 {
@@ -39,7 +39,6 @@ class ChangePasswordType extends AbstractType
                 'attr' => ['max_length' => 255],
             ]
         );
-
     }
 
     /**

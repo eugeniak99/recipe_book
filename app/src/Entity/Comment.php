@@ -2,6 +2,7 @@
 /**
  * Comment entity.
  */
+
 namespace App\Entity;
 
 use DateTimeInterface;
@@ -67,6 +68,7 @@ class Comment
 
     /**
      * Getter for id.
+     * @return int|null
      */
     public function getId(): ?int
     {
@@ -75,6 +77,7 @@ class Comment
 
     /**
      * Getter for comment date.
+     * @return DateTimeInterface|null
      */
     public function getCommentDate(): ?\DateTimeInterface
     {
@@ -113,6 +116,9 @@ class Comment
         return $this;
     }
 
+    /**
+     * Getter for Author.
+     */
     public function getAuthor(): ?User
     {
         return $this->author;
@@ -128,12 +134,17 @@ class Comment
         return $this;
     }
 
+    /**
+     * Getter for Recipe.
+     */
     public function getRecipe(): ?Recipe
     {
         return $this->recipe;
     }
 
     /**
+     * Setter for Recipe.
+     *
      * @return $this
      */
     public function setRecipe(?Recipe $recipe): self

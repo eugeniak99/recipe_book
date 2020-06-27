@@ -26,13 +26,12 @@ class MarkService
     /**
      * MarkService constructor.
      *
-     * @param \App\Repository\MarkRepository      $markRepository Mark repository
+     * @param \App\Repository\MarkRepository $markRepository Mark repository
      *
      */
     public function __construct(MarkRepository $markRepository)
     {
         $this->markRepository = $markRepository;
-
     }
     /**
      * Save mark.
@@ -50,14 +49,13 @@ class MarkService
      * Method Calculate Average.
      *
      * @param Recipe $recipe
+     *
      * @return int
+     *
      * @throws NonUniqueResultException
      */
     public function calculateAvg(Recipe $recipe): int
     {
-
-       return $this->markRepository->calculateAvg($recipe);
-
-
+        return $this->markRepository->calculateAvg($recipe);
     }
 }

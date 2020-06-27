@@ -3,6 +3,7 @@
 {% block title %}Zaloguj się{% endblock %}
 
 {% block body %}
+
 <form method="post">
     {% if error %}
         <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
@@ -36,4 +37,5 @@
         {{ 'new_account'|trans }}
     </a>
 </form>
+
 {% endblock %}
