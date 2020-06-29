@@ -104,7 +104,7 @@ class UserController extends AbstractController
             );
             $this->userService->save($dynia);
 
-            $this->addFlash('success', 'Zmiana hasła się powiodła');
+            $this->addFlash('success', 'message_edited_successfully');
 
             return $this->redirectToRoute('recipe_index');
         }

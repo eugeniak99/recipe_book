@@ -86,7 +86,7 @@ class CategoryController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $this->categoryService->save($category);
-            $this->addFlash('success', 'Dodanie nowej kategorii się powiodło!');
+            $this->addFlash('success', 'message_created_successfully');
 
             return $this->redirectToRoute('category_index');
         }
@@ -124,7 +124,7 @@ class CategoryController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $this->categoryService->save($category);
 
-            $this->addFlash('success', 'Edycja się powiodła!');
+            $this->addFlash('success', 'message_edited_successfully');
 
             return $this->redirectToRoute('category_index');
         }
@@ -182,7 +182,7 @@ class CategoryController extends AbstractController
     public function delete(Request $request, Category $category): Response
     {
         if ($category->getRecipes()->count()) {
-            $this->addFlash('warning', 'Dana kategoria zawiera przepisy. Nie możesz jej usunąć!');
+            $this->addFlash('warning', 'message_not_allowed_category');
 
             return $this->redirectToRoute('category_index');
         }
@@ -196,7 +196,7 @@ class CategoryController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $this->categoryService->delete($category);
-            $this->addFlash('success', 'Usunięcie kategorii się powiodło');
+            $this->addFlash('success', 'message_deleted_successfully');
 
             return $this->redirectToRoute('category_index');
         }

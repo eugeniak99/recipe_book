@@ -119,7 +119,7 @@ class CommentController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $this->commentService->save($comment);
 
-            $this->addFlash('success', 'Edycja się powiodła!');
+            $this->addFlash('success', 'message_edited_successfully');
 
             return $this->redirectToRoute('recipe_index');
         }
@@ -165,7 +165,7 @@ class CommentController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $this->commentService->delete($comment);
-            $this->addFlash('success', 'Usuwanie się powiodło');
+            $this->addFlash('success', 'message_deleted_successfully');
 
             return $this->redirectToRoute('comment_index');
         }

@@ -293,9 +293,59 @@
                                          <target>Imię</target>
                                    </trans-unit>
 
+            <trans-unit id="change_password">
+                <source>change_password</source>
+                <target>Zmień hasło</target>
+            </trans-unit>
+
+            <trans-unit id="change_user_data">
+                <source>change_user_data</source>
+                <target>Zmień dane użytkownika</target>
+            </trans-unit>
+
             <trans-unit id="login">
                 <source>login</source>
                 <target>Zaloguj się</target>
+            </trans-unit>
+
+            <trans-unit id="logout">
+                <source>logout</source>
+                <target>Wyloguj się</target>
+            </trans-unit>
+
+            <trans-unit id="category_filter">
+                <source>category_filter</source>
+                <target>Filtruj według kategorii</target>
+            </trans-unit>
+
+            <trans-unit id="tag_filter">
+                <source>tag_filter</source>
+                <target>Filtruj według tagu</target>
+            </trans-unit>
+
+            <trans-unit id="message_created_successfully">
+                <source>message_created_successfully</source>
+                <target>Dodawanie się powiodło</target>
+            </trans-unit>
+
+            <trans-unit id="message_edited_successfully">
+                <source>message_edited_successfully</source>
+                <target>Edycja się powiodła</target>
+            </trans-unit>
+
+            <trans-unit id="message_deleted_successfully">
+                <source>message_deleted_successfully</source>
+                <target>Usuwanie się powiodło</target>
+            </trans-unit>
+
+            <trans-unit id="message_not_allowed_category">
+                <source>message_not_allowed_category</source>
+                <target>Dana kategoria zawiera przepisy. Nie możesz jej usunąć!</target>
+            </trans-unit>
+
+            <trans-unit id="access_denied">
+                <source>access_denied</source>
+                <target>Nie masz dostępu do treści tej strony.</target>
             </trans-unit>
 
 

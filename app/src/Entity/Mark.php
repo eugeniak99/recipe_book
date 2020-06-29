@@ -25,8 +25,7 @@ class Mark
      * @ORM\Column(type="integer")
      *
      * @Assert\NotBlank
-     * @Assert\Range(min=1, max=5,
-     *      notInRangeMessage = "Możesz dodawać oceny na skali od {{ min }} do {{ max }}")
+     * @Assert\Range(min=1, max=5)
      */
     private $mark;
 

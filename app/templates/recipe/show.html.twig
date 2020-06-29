@@ -19,7 +19,7 @@
             <dd>{{ recipe.recipe_description }}</dd>
 
             <dt>{{ 'label_creation_date'|trans }}</dt>
-            <dd>{{ recipe.creation_date|format_date('long') }}</dd>
+            <dd>{{ recipe.creation_date|date('d.m.y') }}</dd>
             <dt>{{ 'label_rating'|trans }}</dt>
             <dd>{{ recipe.rating }}</dd>
             <dt>{{ 'recipe_tags'|trans }}</dt>
@@ -60,7 +60,7 @@
 
                             </div>
                             <div class="date">
-                                {{ comment.comment_date|date('Y/m/d') }}<br>
+                                {{ comment.comment_date|format_date('long') }}<br>
                             </div>
                             {{ comment.comment_content }}<br>
                             {% if is_granted('EDIT', comment) or is_granted ('ROLE_ADMIN') %}

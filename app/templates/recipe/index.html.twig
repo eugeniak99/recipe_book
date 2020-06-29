@@ -38,19 +38,10 @@
             </tr>
             </thead>
             <tbody>
-<p>
-    <a href="{{ url('recipe_index_rating')}}" title="{{ 'rating_sort'|trans }}"> {{ 'rating_sort'|trans }}</a>
-</p>
-            <p>
-
-                <a href="{{ url('recipe_index') }}" title="{{ 'action_back_to_list'|trans }}">
-                    {{ 'action_back_to_list'|trans }}
-                </a>
-            </p>
 
             &nbsp;<div class="dropdown">
                 <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    Filtruj według kategorii
+                    {{ 'category_filter'|trans }}
                 </button>
                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                     {% set newArray = [] %}
@@ -70,7 +61,7 @@
 
             <div class="dropdown">
                 <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                  Filtruj według tagu
+                 {{ 'tag_filter'|trans }}
                 </button>
                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                     {% set newArray = [] %}
@@ -99,7 +90,7 @@
 
                 <tr>
                     <td>{{ recipe.id }}</td>
-                    <td>{{ recipe.creation_date|date('d/m/Y') }}</td>
+                    <td>{{ recipe.creation_date|format_date('long') }}</td>
                     <td>
 {{ recipe.rating }}
                     </td>

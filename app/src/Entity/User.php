@@ -97,6 +97,7 @@ class User implements UserInterface
 
     /**
      * @ORM\OneToOne(targetEntity=UserData::class, mappedBy="identity", cascade={"persist", "remove"})
+     *
      */
     private $userData;
 

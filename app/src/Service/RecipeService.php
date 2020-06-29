@@ -109,6 +109,7 @@ class RecipeService
     }
 
     /**
+     * QueryAll by Rating
      * @return \Doctrine\ORM\QueryBuilder
      */
     public function queryAllByRating()

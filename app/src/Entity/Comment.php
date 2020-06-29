@@ -61,6 +61,7 @@ class Comment
     private $author;
 
     /**
+     * Recipe.
      * @ORM\ManyToOne(targetEntity=Recipe::class, inversedBy="comments")
      * @ORM\JoinColumn(nullable=false)
      */

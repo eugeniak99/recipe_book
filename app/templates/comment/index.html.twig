@@ -28,7 +28,7 @@
             {% for comment in pagination.items %}
                 <tr>
                     <td>{{ comment.id }}</td>
-                    <td>{{ comment.comment_date|date('Y/m/d') }}</td>
+                    <td>{{ comment.comment_date|format_date('long') }}</td>
                     <td>{{ comment.comment_content }}</td>
                     <td>{{ comment.author }}</td>
 

@@ -75,7 +75,6 @@ class RecipeRepository extends ServiceEntityRepository
      */
     public function queryAllByRating(): QueryBuilder
     {
-
         return $this->getOrCreateQueryBuilder()
             ->select('recipe', 'partial category.{id,category_name}')
             ->join('recipe.category', 'category')

@@ -20,45 +20,40 @@
         <ul class="navbar-nav mr-auto">
 
             <li class="nav-item">
-                <a class="nav-link" href="{{url('recipe_index') }}">Przepisy</a>
+                <a class="nav-link" href="{{url('recipe_index') }}">{{ 'title_recipe_list'|trans}}</a>
             </li>
             {% if not is_granted ('ROLE_USER') %}
             <li class="nav-item">
-                <a class="nav-link" href="{{url('app_register') }}">Rejestracja</a>
+                <a class="nav-link" href="{{url('app_register') }}">{{ 'registration'|trans }}</a>
             </li>
             {% endif %}
 
             {% if is_granted ('ROLE_USER') %}
+
             <li class="nav-item">
-                <a class="nav-link" href="{{url('category_index') }}">Kategorie</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="{{ url('tag_index') }}">Tagi</a>
+                <a class="nav-link" href="{{ url('tag_index') }}">{{ 'tag_list'|trans }}</a>
                 {% if is_granted('ROLE_ADMIN') %}
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="{{ url('comment_index') }}">Komentarze</a>
+                <a class="nav-link" href="{{ url('comment_index') }}">{{ 'comment_list'|trans }}</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="{{ url('user_index') }}">Użytkownicy</a>
+                <a class="nav-link" href="{{ url('user_index') }}">{{ 'user_list'|trans }}</a>
             </li>
             {% endif %}
 
             <li class="nav-item">
-                <a class="nav-link" href="{{ url('password_edit', {id: app.user.id}) }}">Zmień hasło</a>
+                <a class="nav-link" href="{{ url('password_edit', {id: app.user.id}) }}">{{ 'change_password'|trans }}</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="{{ url('userdata_edit', {id: app.user.userData.id}) }}">Zmień dane użytkownika</a>
+                <a class="nav-link" href="{{ url('userdata_edit', {id: app.user.userData.id}) }}">{{ 'change_user_data'|trans }}</a>
             </li>
 
             <li class="nav-item">
-                <a class="nav-link" href="{{ url('app_logout') }}">Wyloguj się</a>
+                <a class="nav-link" href="{{ url('app_logout') }}">{{ 'logout'|trans }}</a>
             </li>
         </ul>
-        <form class="form-inline my-2 my-lg-0">
-            <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-        </form>
+
     </div>
 </nav>
 
@@ -74,7 +69,7 @@
 <div class="container-fluid">
 
     <div class="container-fluid">
-        {% include 'default/_flash_messages.html.twig' %}
+
         {% block body %}{% endblock %}
     </div>
 

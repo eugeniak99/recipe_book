@@ -14,6 +14,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
+use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
 /**
  *  Class UserDataController.
@@ -63,23 +64,25 @@ class UserDataController extends AbstractController
      */
     public function edit(Request $request, UserData $userData): Response
     {
-        $form = $this->createForm(UserDataType::class, $userData, ['method' => 'PUT']);
-        $form->handleRequest($request);
+        if ($this->isGranted('EDIT', $userData)) {
+            $form = $this->createForm(UserDataType::class, $userData, ['method' => 'PUT']);
+            $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
-            $this->userDataService->save($userData);
+            if ($form->isSubmitted() && $form->isValid()) {
+                $this->userDataService->save($userData);
 
-            $this->addFlash('success', 'Edycja się powiodła!');
+                $this->addFlash('success', 'message_edited_successfully');
 
-            return $this->redirectToRoute('recipe_index');
+                return $this->redirectToRoute('recipe_index');
+            }
+
+            return $this->render(
+                'user/edit_data.html.twig',
+                [
+                    'form' => $form->createView(),
+                    'userData' => $userData,
+                ]
+            );
         }
-
-        return $this->render(
-            'user/edit_data.html.twig',
-            [
-                'form' => $form->createView(),
-                'userData' => $userData,
-            ]
-        );
     }
 }

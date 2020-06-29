@@ -1,0 +1,19 @@
+{% extends 'base.html.twig' %}
+{% block title %}
+    {{ 'access_denied'|trans }}
+{% endblock %}
+
+{% block body %}
+
+
+<h1 style="background: white; font-size: 150px" id="flash1">{{ 'access_denied'|trans}}</h1>
+<script>
+    function flash(id, kolor, czas, kolor2, czas2)
+    {
+        document.getElementById(id).style.color = kolor;
+        setTimeout('flash("' + id + '","' + kolor2 + '",' + czas2 + ',"' + kolor + '",' + czas + ')', czas);
+    }
+    flash("flash1", "red", 300, "black", 300);
+
+</script>
+{% endblock %}

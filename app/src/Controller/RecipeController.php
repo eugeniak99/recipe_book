@@ -20,6 +20,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Twig\Extra\Intl\IntlExtension;
 
 /**
  *  Class RecipeController.
@@ -99,16 +100,15 @@ class RecipeController extends AbstractController
             $this->markService->save($mark);
 
             $rating = $this->markService->calculateAvg($recipe);
-            var_dump($rating);
+
             $recipe->setRating($rating);
 
             $this->recipeService->save($recipe);
 
-            $this->addFlash('success', 'Dodanie nowego komentarza się powiodło');
-            $this->addFlash('success', 'Dodanie nowej oceny się powiodło');
+            $this->addFlash('success', 'message_created_successfully');
+
 
             return $this->redirectToRoute('recipe_show', ['id' => $recipe->getId()]);
-            //_show,  ['id' => $id]);
         }
 
         return $this->render(
@@ -140,6 +140,7 @@ class RecipeController extends AbstractController
             $request->query->getAlnum('filters', [])
         );
 
+
         return $this->render(
             'recipe/index.html.twig',
             ['pagination' => $pagination,
@@ -147,36 +148,6 @@ class RecipeController extends AbstractController
         );
     }
 
-    // ...
-
-    /**
-     * IndexByRating action.
-     *
-     * @param \Symfony\Component\HttpFoundation\Request $request   HTTP request
-     *
-     * @param \Knp\Component\Pager\PaginatorInterface   $paginator Paginator
-     *
-     * @return \Symfony\Component\HttpFoundation\Response HTTP response
-     *
-     * @Route(
-     *     "/rating_sort",
-     *     name="recipe_index_rating",
-     * )
-     */
-    public function index_rating(Request $request, PaginatorInterface $paginator): Response
-    {
-        $pagination = $paginator->paginate(
-            $this->recipeService->
-              queryAllByRating(),
-            $request->query->getInt('page', 1),
-            RecipeRepository::PAGINATOR_ITEMS_PER_PAGE
-        );
-
-        return $this->render(
-            'recipe/index.html.twig',
-            ['pagination' => $pagination]
-        );
-    }
 
 
     /**
@@ -206,7 +177,7 @@ class RecipeController extends AbstractController
             $recipe->setCreationDate(new \DateTime());
             $recipe->setRating(0);
             $this->recipeService->save($recipe);
-            $this->addFlash('success', 'Dodawania nowego przepisu się powiodło!');
+            $this->addFlash('success', 'message_created_successfully');
 
             return $this->redirectToRoute('recipe_index');
         }
@@ -243,7 +214,7 @@ class RecipeController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $this->recipeService->save($recipe);
-            $this->addFlash('success', 'Edycja się powiodła');
+            $this->addFlash('success', 'message_edited_successfully');
 
             return $this->redirectToRoute('recipe_index');
         }
@@ -287,7 +258,7 @@ class RecipeController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $this->recipeService->delete($recipe);
-            $this->addFlash('success', 'Usuwanie się powiodło');
+            $this->addFlash('success', 'message_deleted_successfully');
 
             return $this->redirectToRoute('recipe_index');
         }

@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Zaloguj się{% endblock %}
+{% block title %}{{ 'login'|trans }}{% endblock %}
 
 {% block body %}
 
@@ -10,9 +10,9 @@
     {% endif %}
 
 
-    <label for="inputEmail">Email</label>
+    <label for="inputEmail">{{ 'email'|trans }}</label>
     <input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="form-control" required autofocus>
-    <label for="inputPassword">Hasło</label>
+    <label for="inputPassword">{{ 'label_password'|trans }}</label>
     <input type="password" name="password" id="inputPassword" class="form-control" required>
 
     <input type="hidden" name="_csrf_token"
@@ -31,7 +31,7 @@
     #}
 
     <button class="btn btn-lg btn-primary" type="submit">
-        Zaloguj się
+        {{ 'login'|trans }}
     </button>
     <a href="{{ url('app_register') }}" class="btn btn-link" style="background-color: white">
         {{ 'new_account'|trans }}

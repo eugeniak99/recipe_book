@@ -14,8 +14,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @ORM\Entity(repositoryClass=UserDataRepository::class)
  * @ORM\Table(name="users_data")
  *
- * @UniqueEntity("nickname", errorPath="nickname",
- *     message="Ten nick już jest używany.")
+ * @UniqueEntity("nickname", errorPath="nickname")
  *
  */
 class UserData
@@ -28,7 +27,8 @@ class UserData
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
-     */
+     *
+     * */
     private $id;
 
     /**
@@ -42,6 +42,7 @@ class UserData
      *     min="3",
      *     max="45",
      *     )
+     *
      *
      * @ORM\Column(type="string", length=45, unique=true)
      */
